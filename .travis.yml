@@ -1,0 +1,23 @@
+language: python
+os: linux
+dist: focal
+python:
+  - "3.8"
+services:
+  - docker
+before_script:
+  - pytest --cov=Mess_Management_System tests/
+script:
+  - docker-compose build
+  - docker-compose run messmanagementsystem pytest --cov=Mess_Management_System tests/
+notifications:
+  on_success: always
+  on_failure: always
+deploy:
+  provider: heroku
+  api_key:
+    secure: VJvqnlOgsZ7eFhDjsjwydoZjbITVgWCWNocDlO16PbTdokraTKdGaioFc36nxIu8kSfVN0Y5CRCNrCWg/uRzyig5m3Bn+RaNE05HZJghx5M54J08PL/a2jv8+hJhZrZhGJCpk3DCfCygsXg0H+tHCiuFBxL7tXBXh/sQMLeqlzvU4Oc6OxHWLVdhL0TljpwIfrfSwi0ZGRwh/bkh8XCHVjnwG3tpDDAoLe7anQKNz5poK0IR8NK2DI/SVvs50ZaYCYbE98b25vQGYFQpTJiYk135/lZw4eoFNXFR29jQITjNXKzFmH/wipQ97PezPqZCNqmrT4WWuc+nkFQscd7BGnI8DIilNZqSCv9hXbMtP+pJpITuzixFEUyt/Om7NpGIr2tjQPzIDXwuBFHGjV40/rV7l9r+LaM4mVKNVNvOjC7cbTPJOjG4JgboKntbTm8LFEro7yxBHr5s2b9Y85GOsaPRYvNVBN06/FBwHFg+IMylbcrb+NWVrz3WAALnr084DAj6nhSoVLEXdRQ27/BfwlUv6Az3Nqbk4j/sItGlRFuPm70qzNm0tauSJ7+kO/VlXndmBfwYBZ0imVunIKu/YIKaOwiyccnMRvEEMkixQdH0Duqy1v0EEVubjqdQoRNgvsV/Ww5mSazy0q/3uywN7RQmuL5vz1Z7tpArR2KWiBc=
+  app: messmanagementsystem
+  on:
+    repo: kumaraditya303/Mess-Management-System
+  skip_cleanup: "true"

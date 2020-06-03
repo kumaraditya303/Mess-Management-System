@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block title %}
+Dashboard
+{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+{% endblock style %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i> {{current_user.balance}}</span>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href="{{url_for('user.order')}}">Order</a>
+</li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle ml-5" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <img src="{{current_user.avatar}}" style="border-radius: 50%;width: 40px;height: 40px;">
+
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{{url_for('user.balance')}}">Add Balance</a>
+        <a class="dropdown-item" href="{{url_for('user.logout')}}">Logout</a>
+    </div>
+</li>
+
+
+{% endblock nav %}
+{% block content %}
+<div class="container text-center mt-5">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1 class="display-4">Welcome {{current_user.name}}</h1>
+
+    {% if orders %}
+    <h1 class="display-5">Your previous orders</h1>
+    <hr style="border: 3px solid white; border-radius: 5px;" />
+    <br />
+    <div class="row">
+        {% for order in orders %}
+        <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
+            <img class="card-img-top" src="{{ url_for('user.dishes_picture',name=order.orders.name) }}" height="256px"
+                width="256px">
+            <h5 class="card-header">{{order.orders.name}}</h5>
+            <div class="card-body">
+                <p class="card-text">{{order.orders.description}}</p>
+                <p><i class="fa fa-clock-o"> &emsp; {{order.time}}</i></p>
+                <p><i class="fa fa-clock-o"> &emsp; {{order.quantity}}</i></p>
+                <p><i class="fas fa-rupee-sign"> &emsp; {{order.price}}</i></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+{% block title %}
+Add Dish
+{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock style %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='{{url_for("admin.admin_logout")}}'>Logout</a>
+</li>
+{% endblock nav %}
+{% block content %}
+<div class="card container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="card-header">
+        <h3>Add Dish</h3>
+    </div>
+    <div class="card-body">
+        <form action="{{url_for('admin.add_dishes')}}" method="POST" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-pizza-slice"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Name" name="name" required autofocus minlength="4"
+                    maxlength="80">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Price" name="price" required min="1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                </div>
+                <input type="time" class="form-control" placeholder="Cook time" name="cooktime" required>
+            </div>
+            <textarea name="description" cols="30" rows="2" class="form-control mb-3" placeholder="Description"
+                required></textarea>
+            <div class='input-group mb-4'>
+                <div class='input-group-prepend'>
+                    <span class='input-group-text'><i class="fas fa-camera"></i></span>
+                </div>
+                <div class='custom-file'>
+                    <input type='file' class='custom-file-input' name='picture' id='customfile' required>
+                    <label class='custom-file-label' for='customfile'>Choose dish image</label>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class='btn btn-lg btn-primary btn-block' type='submit'>Add Dish <i
+                        class="fas fa-pizza-slice"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
