@@ -14,8 +14,8 @@ install:
 before_script:
   - export FLASK_APP=runserver.py
   - export DATABASE_URL=sqlite:///data.db
-  - flask db init
-  - flask db migrate -m "Initial Migration"
+  # - flask db init
+  # - flask db migrate -m "Initial Migration" 
 script:
   - pytest --cov=Mess_Management_System tests/
 notifications:
