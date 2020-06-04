@@ -6,3 +6,4 @@ Flask==1.1.2
 Flask_SQLAlchemy==2.2
 Flask_Testing==0.8.0
 pytest
+pytest-cov
