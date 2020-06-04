@@ -75,7 +75,7 @@ def login():
         db.session.add(user)
         db.session.commit()
     login_user(user)
-    flash(f"Logged in successfully!",
+    flash("Logged in successfully!",
           category='success')
     return redirect(url_for('dashboard'))
 
@@ -84,7 +84,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash(f"Logged out successfully",
+    flash("Logged out successfully",
           category='success')
     return redirect(url_for('index'))
 
