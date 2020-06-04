@@ -3,7 +3,8 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
-from flask import *
+from flask import(Flask, render_template, redirect,
+                  url_for, flash, send_file, request)
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
 from flask_mail import Message
@@ -19,15 +20,13 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/dishes/<name>', methods=['GET'])
-def dishes_picture(name):
-    picture = Dishes.query.filter_by(name=name).first_or_404()
-    return send_file(BytesIO(picture.picture), mimetype='image/jpg', as_attachment=False, attachment_filename=f"{name}.jpg")
-
 
 @app.route('/', methods=['GET'])
 def index():
     dishes = Dishes.query.all()
+    if not dishes:
+        flash("No dishes are available in Mess!",
+              category='warning')
     return render_template(
         'index.html',
         year=year,
@@ -44,6 +43,8 @@ def balance():
         user.balance += float(balance)
         user.total_balance += float(balance)
         db.session.commit()
+        flash(f"₹ {balance} was added successfully to your Mess account!",
+              category='success')
         return redirect(url_for('dashboard'))
     return render_template(
         'balance.html',
@@ -75,6 +76,8 @@ def login():
         db.session.add(user)
         db.session.commit()
     login_user(user)
+    flash(f"Logged in successfully!",
+          category='success')
     return redirect(url_for('dashboard'))
 
 
@@ -82,4 +85,14 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash(f"Logged out successfully",
+          category='success')
     return redirect(url_for('index'))
+
+
+@app.route('/dishes/<name>', methods=['GET'])
+def dishes_picture(name):
+    picture = Dishes.query.filter_by(name=name).first_or_404()
+    return send_file(BytesIO(picture.picture),
+                     mimetype='image/jpg', as_attachment=False,
+                     attachment_filename=f"{name}.jpg")
