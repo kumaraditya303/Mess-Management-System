@@ -28,7 +28,7 @@ def admin():
 
 @app.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
-    if Admin.admin == True:
+    if Admin.admin is True:
         return render_template(
             'admin_dashboard.html',
             year=year
