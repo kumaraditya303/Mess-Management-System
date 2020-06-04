@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block title %}
+Balance
+{% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/order'>Order</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/history'>Order History</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/logout'>Logout</a>
+</li>
+{% endblock nav %}
+{% block content %}
+<form action="/balance" method="post" class="text-center mt-5 container" style="width: 50%;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1 class="display-4 text-center">Add Balance</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">&#8377;</span>
+        </div>
+        <input type="number" class="form-control" placeholder="Amount" name="balance" required autofocus>
+    </div>
+
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
+</form>
+
+
+{% endblock content %}

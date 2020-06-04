@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block title %}
+Dashboard
+{% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/balance'>Add Balance</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/order'>Order</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/history'>Order History</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/logout'>Logout</a>
+</li>
+{% endblock nav %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+<!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+{% if messages %}
+{% for category, message in messages %}
+<div class='alert alert-{{category}}'>
+    <button type='button' class='close' data-dismiss='alert'>&times;</button>
+    {{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% endblock content %}

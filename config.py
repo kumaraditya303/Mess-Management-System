@@ -9,11 +9,11 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL') or 'sqlite:///data.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    OAUTHLIB_INSECURE_TRANSPORT = os.environ.get('OAUTHLIB_INSECURE_TRANSPORT')
-    OAUTHLIB_RELAX_TOKEN_SCOPE=os.environ.get('OAUTHLIB_RELAX_TOKEN_SCOPE')
+    OAUTHLIB_INSECURE_TRANSPORT = '1'
+    OAUTHLIB_RELAX_TOKEN_SCOPE = '1'
     MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 465 
-    MAIL_USE_TLS = False
+    MAIL_PORT = 465
+    MAIL_USE_TLS = True
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')

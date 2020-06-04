@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block title %}
+Admin 
+{% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/login'>Login</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/admin'>Admin</a>
+</li>
+{% endblock nav %}
+{% block content %}
+<form action="/admin" method="post" class="text-center mt-5 container" style="width: 50%;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1 class="display-4 text-center">Admin Login</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+        </div>
+        <input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+        </div>
+        <input type="password" class="form-control" placeholder="Password" name="password" required autofocus min="8">
+    </div>
+
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
+</form>
+
+
+{% endblock content %}

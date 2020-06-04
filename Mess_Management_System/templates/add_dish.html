@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block title %}
+Add Dish
+{% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/remove/dishes'>Remove Dishes</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/admin/logout'>Logout</a>
+</li>
+{% endblock nav %}
+{% block content %}
+<form action="/add/dishes" method="post" enctype="multipart/form-data" class="text-center mt-5 container" style="width: 50%;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1 class="display-4 text-center">Add Dish</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-pizza-slice"></i></span>
+        </div>
+        <input type="text" class="form-control" placeholder="Name" name="name" required autofocus>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+        </div>
+        <input type="number" class="form-control" placeholder="Price" name="price" required min="1">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+        </div>
+        <input type="number" class="form-control" placeholder="Time" name="cooktime" required min="1">
+    </div>
+    <div class='input-group mb-4'>
+        <div class='input-group-prepend'>
+            <span class='input-group-text'><i class="fas fa-camera"></i></span>
+        </div>
+        <div class='custom-file'>
+            <input type='file' class='custom-file-input' name='picture' id='customfile' required
+            onchange="fileValidation();" accept="image/jpg">
+            <label class='custom-file-label' for='customfile'>Choose image</label>
+        </div>
+    </div>
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
+</form>
+
+
+{% endblock content %}

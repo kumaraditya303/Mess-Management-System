@@ -23,3 +23,4 @@ app.register_blueprint(google_blueprint, url_prefix='/google_login')
 google_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, current_user)
 
 import Mess_Management_System.userviews
+import Mess_Management_System.adminviews

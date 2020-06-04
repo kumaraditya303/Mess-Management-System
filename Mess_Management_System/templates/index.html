@@ -1,8 +1,53 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Home
+Home
 {% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/login'>Login</a>
+</li>
+<li class='nav-item active ml-4'>
+    <a class='nav-link' href='/admin'>Admin</a>
+</li>
+{% endblock nav %}
 {% block content %}
-        <h1 class="display-4">Welcome to Mess Management System</h1>
-        <p class="lead">This is a Python Flask Based System</p>
+<div class="container text-center mt-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class='alert alert-{{category}}'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        {{message}}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h1 class="display-4">Welcome to Mess Management System</h1>
+    <p class="lead">This is a Python Flask Based System</p>
+    {% if dishes %}
+    <h1 class="display-4">All Dishes</h1>
+    <hr style="border: 3px solid white; border-radius: 5px;" />
+    <br>
+    <table class="table table-dark table-bordered">
+        <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Cook Time</th>
+            <th scope="col">Picture</th>
+        </thead>
+        <tbody>
+            {% for dish in dishes %}
+            <tr>
+                <td scope="row">{{dish.name}}</td>
+                <td scope="row">&#8377; {{dish.price}}</td>
+                <td scope="row">{{dish.cook_time}}</td>
+                <td scope="row"><img src="/dishes/{{dish.name}}" alt="" height="50px;" width="50px;"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
 {% endblock content %}
