@@ -3,13 +3,12 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
-from flask import(Flask, render_template, redirect,
+from flask import(render_template, redirect,
                   url_for, flash, send_file, request)
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
-from flask_mail import Message
 
-from Mess_Management_System import app, db, google_blueprint, login_manager
+from Mess_Management_System import app, db, login_manager
 from Mess_Management_System.models import Dishes, User
 
 year = datetime.now().year

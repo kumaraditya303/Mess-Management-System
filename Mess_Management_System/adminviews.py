@@ -1,13 +1,12 @@
 """
 The Admin views
 """
-from datetime import datetime, timedelta
-from io import BytesIO
+from datetime import timedelta
 
-from flask import (Flask, flash, redirect, render_template, render_template,
+from flask import (flash, redirect, render_template, render_template,
                    request, url_for)
 from Mess_Management_System import app, db,login_manager
-from Mess_Management_System.models import Admin, Dishes, User
+from Mess_Management_System.models import Admin, Dishes
 from Mess_Management_System.userviews import year
 
 
