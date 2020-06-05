@@ -1,14 +1,23 @@
 """
 The Admin views
 """
+<<<<<<< HEAD
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
+=======
+from datetime import timedelta
+>>>>>>> 8dd175b42959b92afdb574676ce0c414d1061ecc
 
-from flask import (Flask, flash, redirect, render_template, render_template,
+from flask import (flash, redirect, render_template, render_template,
                    request, url_for)
+<<<<<<< HEAD
 from Mess_Management_System import app, db, login_manager
 from Mess_Management_System.models import Admin, Dishes, User
+=======
+from Mess_Management_System import app, db,login_manager
+from Mess_Management_System.models import Admin, Dishes
+>>>>>>> 8dd175b42959b92afdb574676ce0c414d1061ecc
 from Mess_Management_System.userviews import year
 
 
@@ -29,7 +38,7 @@ def admin():
 
 @app.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
-    if Admin.admin == True:
+    if Admin.admin is True:
         return render_template(
             'admin_dashboard.html',
             year=year

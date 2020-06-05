@@ -15,7 +15,7 @@ install:
   - pip install -r requirements.txt
 before_script:
   - export FLASK_APP=runserver.py
-  - mysql -e 'CREATE DATABASE test;'
+  - mysql -e 'CREATE DATABASE mydatabase;'
 script:
   - flask db init
   - flask db migrate -m "Initial Migration" 
