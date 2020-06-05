@@ -36,12 +36,12 @@ def index():
 @login_required
 def balance():
     if request.method == 'POST':
-        balance = request.form['balance']
+        user_balance = request.form['balance']
         user = User.query.filter_by(id=current_user.id).first()
-        user.balance += float(balance)
-        user.total_balance += float(balance)
+        user.balance += float(user_balance)
+        user.total_balance += float(user_balance)
         db.session.commit()
-        flash(f"₹ {balance} was added successfully to your Mess account!",
+        flash(f"₹ {user_balance} was added successfully to your Mess account!",
               category='success')
         return redirect(url_for('dashboard'))
     return render_template(
