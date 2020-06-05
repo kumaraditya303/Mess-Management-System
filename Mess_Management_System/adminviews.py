@@ -1,23 +1,14 @@
 """
 The Admin views
 """
-<<<<<<< HEAD
-from datetime import datetime, timedelta
-from io import BytesIO
-from PIL import Image
-=======
 from datetime import timedelta
->>>>>>> 8dd175b42959b92afdb574676ce0c414d1061ecc
+from io import BytesIO
 
-from flask import (flash, redirect, render_template, render_template,
-                   request, url_for)
-<<<<<<< HEAD
+from flask import flash, redirect, render_template, request, url_for
+from PIL import Image
+
 from Mess_Management_System import app, db, login_manager
-from Mess_Management_System.models import Admin, Dishes, User
-=======
-from Mess_Management_System import app, db,login_manager
 from Mess_Management_System.models import Admin, Dishes
->>>>>>> 8dd175b42959b92afdb574676ce0c414d1061ecc
 from Mess_Management_System.userviews import year
 
 
@@ -64,8 +55,11 @@ def add_dishes():
         image_resized.save(buffer, format='JPEG')
         price = request.form['price']
         cook_time = timedelta(minutes=int(request.form['cooktime']))
-        dish = Dishes(name=name, picture=buffer.getvalue(),
-                      price=price, cook_time=cook_time, description=description)
+        dish = Dishes(name=name,
+                      picture=buffer.getvalue(),
+                      price=price,
+                      cook_time=cook_time,
+                      description=description)
         db.session.add(dish)
         db.session.commit()
         flash(f"{name} dish added successfully!", category='success')
