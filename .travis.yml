@@ -5,19 +5,19 @@ python:
   - "3.8"
 services:
   - docker
-  - mysql
+  # - mysql
 before_install:
   - docker build -t messmanagamentsystem:latest .
   - docker ps -a
-  - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
+  # - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
 install:
   - pip install -r requirements.txt
 before_script:
   - export FLASK_APP=runserver.py
-  - mysql -e 'CREATE DATABASE mydatabase;'
+  # - mysql -e 'CREATE DATABASE mydatabase;'
 script:
-  - flask db init
-  - flask db migrate -m "Initial Migration" 
+  # - flask db init
+  # - flask db migrate -m "Initial Migration" 
   - pytest --cov=Mess_Management_System tests/
 notifications:
   on_success: always
