@@ -7,7 +7,7 @@ class Config:
     CSRF_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(24)
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL') or 'mysql://kumaraditya:9304554856a@localhost/mydatabase'
+        'DATABASE_URL') or 'mysql://travis@localhost/mydatabase'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     OAUTHLIB_INSECURE_TRANSPORT = '1'
     OAUTHLIB_RELAX_TOKEN_SCOPE = '1'
