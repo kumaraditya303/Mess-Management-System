@@ -4,17 +4,17 @@ Dashboard
 {% endblock title %}
 {% block nav %}
 <li class='nav-item active ml-4'>
-    <span class="nav-link">Balance: ₹ {{current_user.balance}}</span>
+    <span class="nav-link">Balance:<i class="fas fa-rupee-sign"></i>{{current_user.balance}}</span>
 </li>
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/balance'>Add Balance</a>
+    <a class='nav-link' href='/balance'><i class="fas fa-university"></i> Add Balance</a>
 </li>
 <li class='nav-item active ml-4'>
     <a class='nav-link' href='/order'>Order</a>
 </li>
 
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/logout'>Logout</a>
+    <a class='nav-link' href='/logout'><i class="fas fa-sign-out-alt"></i> Logout</a>
 </li>
 {% endblock nav %}
 {% block content %}
@@ -32,6 +32,6 @@ Dashboard
     {% endif %}
     {% endwith %}
     <h1 class="display-4">Welcome {{current_user.name}}</h1>
-    
+
 </div>
 {% endblock content %}

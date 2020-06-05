@@ -4,19 +4,21 @@ dist: focal
 python:
   - "3.8"
 services:
+  - mysql
+services:
   - docker
 before_install:
   - docker build -t messmanagamentsystem:latest .
   - docker ps -a
-  # - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
+  - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
 install:
   - pip install -r requirements.txt
 before_script:
   - export FLASK_APP=runserver.py
-  - export DATABASE_URL=sqlite:///data.db
-  # - flask db init
-  # - flask db migrate -m "Initial Migration" 
+  - mysql -e 'CREATE DATABASE test;'
 script:
+  - flask db init
+  - flask db migrate -m "Initial Migration" 
   - pytest --cov=Mess_Management_System tests/
 notifications:
   on_success: always

@@ -19,9 +19,10 @@ class User(UserMixin, db.Model):
 class Dishes(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    picture = db.Column(db.LargeBinary, unique=True, nullable=False)
+    picture = db.Column(db.LargeBinary, unique=False, nullable=False)
     price = db.Column(db.Float, nullable=False, default=0.0)
-    cook_time = db.Column(db.Interval, nullable=True)
+    description = db.Column(db.Text, unique=False, nullable=False)
+    cook_time = db.Column(db.Interval, nullable=False)
 
 
 class OAuth(OAuthConsumerMixin, db.Model):
@@ -29,6 +30,5 @@ class OAuth(OAuthConsumerMixin, db.Model):
     user = db.relationship(User)
 
 
-
 class Admin:
-    admin=False
+    admin = False

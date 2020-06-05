@@ -20,7 +20,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-
 @app.route('/', methods=['GET'])
 def index():
     dishes = Dishes.query.all()
@@ -90,7 +89,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/dishes/<name>', methods=['GET'])
+@app.route('/dishes/<string:name>', methods=['GET'])
 def dishes_picture(name):
     picture = Dishes.query.filter_by(name=name).first_or_404()
     return send_file(BytesIO(picture.picture),

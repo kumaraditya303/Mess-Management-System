@@ -18,7 +18,7 @@
         <div class='container-fluid' id='navbarNav'>
             <ul class='nav navbar-nav navbar-brand'>
                 <li class='nav-item'>
-                    <a class='navbar-brand' href='/'>Home</a>
+                    <a class='navbar-brand' href='/'><i class="fas fa-home"></i>  Home</a>
                 </li>
             </ul>
             <ul class='nav navbar-nav ml-auto'>
@@ -36,8 +36,17 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>
-    <script src="{{ url_for('static',filename='script.js')}}"></script>
-
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").change(function (e) {
+                var fileExtension = ['jpeg', 'jpg'];
+                if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                    alert("Only formats are allowed : " + fileExtension.join(', '));
+                }
+                $(".custom-file-label").html(e.target.files[0].name);
+            });
+        });
+    </script>
 </body>
 
 </html>

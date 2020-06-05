@@ -4,10 +4,10 @@ Home
 {% endblock title %}
 {% block nav %}
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/login'>Login</a>
+    <a class='nav-link' href='/login'><i class="fas fa-sign-in-alt"></i> Login</a>
 </li>
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/admin'>Admin</a>
+    <a class='nav-link' href='/admin'><i class="fas fa-users-cog"></i> Admin</a>
 </li>
 {% endblock nav %}
 {% block content %}
@@ -30,24 +30,19 @@ Home
     <h1 class="display-4">All Dishes</h1>
     <hr style="border: 3px solid white; border-radius: 5px;" />
     <br>
-    <table class="table table-dark table-bordered">
-        <thead>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Cook Time</th>
-            <th scope="col">Picture</th>
-        </thead>
-        <tbody>
-            {% for dish in dishes %}
-            <tr>
-                <td scope="row">{{dish.name}}</td>
-                <td scope="row">&#8377; {{dish.price}}</td>
-                <td scope="row">{{dish.cook_time}}</td>
-                <td scope="row"><img src="/dishes/{{dish.name}}" alt="" height="50px;" width="50px;"></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        {% for dish in dishes %}
+        <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
+            <img class="card-img-top" src="/dishes/{{dish.name}}" height="256px" width="256px">
+            <h5 class="card-header">{{dish.name}}</h5>
+            <div class="card-body">
+                <p class="card-text">{{dish.description}}</p>
+                <p><i class="fa fa-clock-o"> &emsp; {{dish.cook_time}}</i></p>
+                <p><i class="fas fa-rupee-sign"> &emsp; {{dish.price}}</i></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
 </div>
 {% endblock content %}

@@ -11,7 +11,8 @@ Add Dish
 </li>
 {% endblock nav %}
 {% block content %}
-<form action="/add/dishes" method="post" enctype="multipart/form-data" class="text-center mt-5 container" style="width: 50%;">
+<form action="/add/dishes" method="post" enctype="multipart/form-data" class="text-center mt-5 container"
+    style="width: 50%;">
     {% with messages = get_flashed_messages(with_categories=true) %}
     <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
     {% if messages %}
@@ -33,7 +34,7 @@ Add Dish
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
         </div>
         <input type="number" class="form-control" placeholder="Price" name="price" required min="1">
     </div>
@@ -42,18 +43,25 @@ Add Dish
             <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
         </div>
         <input type="number" class="form-control" placeholder="Time" name="cooktime" required min="1">
+        <div class='input-group-append'>
+            <div class='input-group-text'>
+                <span>minutes</span>
+            </div>
+        </div>
     </div>
+    <textarea name="description" id="description" cols="30" rows="2" class="form-control mb-3"
+        placeholder="Description"></textarea>
     <div class='input-group mb-4'>
         <div class='input-group-prepend'>
             <span class='input-group-text'><i class="fas fa-camera"></i></span>
         </div>
         <div class='custom-file'>
-            <input type='file' class='custom-file-input' name='picture' id='customfile' required
-            onchange="fileValidation();" accept="image/jpg">
+            <input type='file' class='custom-file-input' name='picture' id='customfile' required>
             <label class='custom-file-label' for='customfile'>Choose image</label>
         </div>
     </div>
-    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
+    <div id="imagePreview"></div>
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>Add Dish <i class="fas fa-pizza-slice"></i></button>
 </form>
 
 

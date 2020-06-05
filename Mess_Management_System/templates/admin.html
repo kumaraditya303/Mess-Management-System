@@ -1,13 +1,13 @@
 {% extends 'layout.html' %}
 {% block title %}
-Admin 
+<i class="fas fa-users-cog"></i> Admin 
 {% endblock title %}
 {% block nav %}
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/login'>Login</a>
+    <a class='nav-link' href='/login'><i class="fas fa-sign-in-alt"></i> Login</a>
 </li>
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/admin'>Admin</a>
+    <a class='nav-link' href='/admin'><i class="fas fa-users-cog"></i> Admin</a>
 </li>
 {% endblock nav %}
 {% block content %}
@@ -24,7 +24,7 @@ Admin
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <h1 class="display-4 text-center">Admin Login</h1>
+    <h1 class="display-4 text-center"><i class="fas fa-users-cog"></i> Admin Login</h1>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -38,7 +38,7 @@ Admin
         <input type="password" class="form-control" placeholder="Password" name="password" required autofocus min="8">
     </div>
 
-    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
+    <button class='btn btn-lg btn-primary btn-block' type='submit'><i class="fas fa-sign-in-alt"></i>  Login </button>
 </form>
 
 

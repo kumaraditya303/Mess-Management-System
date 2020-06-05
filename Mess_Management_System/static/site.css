@@ -3,6 +3,10 @@ body{
     background-size: cover;
 }
 img:hover{
-    width: 100px;
-    height: 100px;
+    transform: scale(1.5);
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
 }
+/* .card{
+    display: inline-block;
+} */

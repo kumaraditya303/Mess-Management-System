@@ -3,10 +3,11 @@ The Admin views
 """
 from datetime import datetime, timedelta
 from io import BytesIO
+from PIL import Image
 
 from flask import (Flask, flash, redirect, render_template, render_template,
                    request, url_for)
-from Mess_Management_System import app, db,login_manager
+from Mess_Management_System import app, db, login_manager
 from Mess_Management_System.models import Admin, Dishes, User
 from Mess_Management_System.userviews import year
 
@@ -47,10 +48,15 @@ def add_dishes():
     if request.method == 'POST':
         name = request.form['name']
         picture = request.files['picture']
+        description = request.form['description']
+        image = Image.open(picture)
+        image_resized = image.resize((256, 256))
+        buffer = BytesIO()
+        image_resized.save(buffer, format='JPEG')
         price = request.form['price']
         cook_time = timedelta(minutes=int(request.form['cooktime']))
-        dish = Dishes(name=name, picture=picture.read(),
-                      price=price, cook_time=cook_time)
+        dish = Dishes(name=name, picture=buffer.getvalue(),
+                      price=price, cook_time=cook_time, description=description)
         db.session.add(dish)
         db.session.commit()
         flash(f"{name} dish added successfully!", category='success')
