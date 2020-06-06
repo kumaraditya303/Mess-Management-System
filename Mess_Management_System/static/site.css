@@ -2,11 +2,8 @@ body{
     background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.hdwallsource.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fitalian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg&f=1&nofb=1);
     background-size: cover;
 }
-img:hover{
+/* img:hover{
     transform: scale(1.5);
     overflow: hidden;
     transition: transform 0.5s ease-in-out;
-}
-/* .card{
-    display: inline-block;
 } */

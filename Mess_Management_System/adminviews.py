@@ -2,6 +2,7 @@
 The Admin views
 """
 from datetime import timedelta
+from functools import wraps
 from io import BytesIO
 
 from flask import flash, redirect, render_template, request, url_for
@@ -12,8 +13,21 @@ from Mess_Management_System.models import Admin, Dishes
 from Mess_Management_System.userviews import year
 
 
+def requires_admin():
+    """Checks if user is admin"""
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if not Admin:
+                return unauthorized()
+            return f(*args, **kwargs)
+        return wrapped
+    return wrapper
+
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    """Login admin"""
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -28,8 +42,10 @@ def admin():
 
 
 @app.route('/admin/dashboard', methods=['GET'])
+@requires_admin()
 def admin_dashboard():
-    if Admin.admin is True:
+    """Admin Dashboard"""
+    if Admin.admin:
         return render_template(
             'admin_dashboard.html',
             year=year
@@ -38,13 +54,17 @@ def admin_dashboard():
 
 
 @app.route('/admin/logout', methods=['GET'])
+@requires_admin()
 def admin_logout():
+    """Admin Logout"""
     Admin.admin = False
     return redirect(url_for('index'))
 
 
 @app.route('/add/dishes', methods=['GET', 'POST'])
+@requires_admin()
 def add_dishes():
+    """Add Dish"""
     if request.method == 'POST':
         name = request.form['name']
         picture = request.files['picture']
@@ -72,6 +92,7 @@ def add_dishes():
 
 @login_manager.unauthorized_handler
 def unauthorized():
+    """Unauthorized User"""
     flash("You are unauthorized to access the page!",
           category='warning')
     return redirect(url_for('index'))

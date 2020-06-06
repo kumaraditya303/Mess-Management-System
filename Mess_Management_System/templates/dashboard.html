@@ -4,18 +4,25 @@ Dashboard
 {% endblock title %}
 {% block nav %}
 <li class='nav-item active ml-4'>
-    <span class="nav-link">Balance:<i class="fas fa-rupee-sign"></i>{{current_user.balance}}</span>
-</li>
-<li class='nav-item active ml-4'>
-    <a class='nav-link' href='/balance'><i class="fas fa-university"></i> Add Balance</a>
+    <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i>  {{current_user.balance}}</span>
 </li>
 <li class='nav-item active ml-4'>
     <a class='nav-link' href='/order'>Order</a>
 </li>
 
-<li class='nav-item active ml-4'>
-    <a class='nav-link' href='/logout'><i class="fas fa-sign-out-alt"></i> Logout</a>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle ml-5" href="#" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <img src="{{current_user.avatar}}" style="border-radius: 50%;width: 40px;height: 40px;">
+
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/balance">Add Balance</a>
+        <a class="dropdown-item" href="/logout">Logout</a>
+    </div>
 </li>
+
+
 {% endblock nav %}
 {% block content %}
 <div class="container text-center mt-5">

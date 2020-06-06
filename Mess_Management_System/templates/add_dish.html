@@ -2,17 +2,40 @@
 {% block title %}
 Add Dish
 {% endblock title %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Numans');
+
+    html,
+    body {
+        background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.hdwallsource.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fitalian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg&f=1&nofb=1');
+        background-size: 120%;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+
+    .container {
+        height: 100%;
+        align-content: center;
+    }
+
+    .card {
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 400px;
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+</style>
+{% endblock style %}    
 {% block nav %}
-<li class='nav-item active ml-4'>
-    <a class='nav-link' href='/remove/dishes'>Remove Dishes</a>
-</li>
 <li class='nav-item active ml-4'>
     <a class='nav-link' href='/admin/logout'>Logout</a>
 </li>
 {% endblock nav %}
 {% block content %}
-<form action="/add/dishes" method="post" enctype="multipart/form-data" class="text-center mt-5 container"
-    style="width: 50%;">
+<div class="card container">
     {% with messages = get_flashed_messages(with_categories=true) %}
     <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
     {% if messages %}
@@ -25,44 +48,51 @@ Add Dish
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <h1 class="display-4 text-center">Add Dish</h1>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-pizza-slice"></i></span>
-        </div>
-        <input type="text" class="form-control" placeholder="Name" name="name" required autofocus>
+    <div class="card-header">
+        <h3>Add Dish</h3>
     </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
-        </div>
-        <input type="number" class="form-control" placeholder="Price" name="price" required min="1">
-    </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-        </div>
-        <input type="number" class="form-control" placeholder="Time" name="cooktime" required min="1">
-        <div class='input-group-append'>
-            <div class='input-group-text'>
-                <span>minutes</span>
+    <div class="card-body">
+        <form action="/add/dishes" method="POST" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-pizza-slice"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Name" name="name" required autofocus>
             </div>
-        </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Price" name="price" required min="1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Time" name="cooktime" required min="1">
+                <div class='input-group-append'>
+                    <div class='input-group-text'>
+                        <span>minutes</span>
+                    </div>
+                </div>
+            </div>
+            <textarea name="description" id="description" cols="30" rows="2" class="form-control mb-3"
+                placeholder="Description"></textarea>
+            <div class='input-group mb-4'>
+                <div class='input-group-prepend'>
+                    <span class='input-group-text'><i class="fas fa-camera"></i></span>
+                </div>
+                <div class='custom-file'>
+                    <input type='file' class='custom-file-input' name='picture' id='customfile' required>
+                    <label class='custom-file-label' for='customfile'>Choose image</label>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class='btn btn-lg btn-primary btn-block' type='submit'>Add Dish <i
+                        class="fas fa-pizza-slice"></i></button>
+            </div>
+        </form>
     </div>
-    <textarea name="description" id="description" cols="30" rows="2" class="form-control mb-3"
-        placeholder="Description"></textarea>
-    <div class='input-group mb-4'>
-        <div class='input-group-prepend'>
-            <span class='input-group-text'><i class="fas fa-camera"></i></span>
-        </div>
-        <div class='custom-file'>
-            <input type='file' class='custom-file-input' name='picture' id='customfile' required>
-            <label class='custom-file-label' for='customfile'>Choose image</label>
-        </div>
-    </div>
-    <div id="imagePreview"></div>
-    <button class='btn btn-lg btn-primary btn-block' type='submit'>Add Dish <i class="fas fa-pizza-slice"></i></button>
-</form>
 
-
+</div>
 {% endblock content %}

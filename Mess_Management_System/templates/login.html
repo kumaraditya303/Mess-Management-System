@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}
-Admin
+Login
 {% endblock  %}
 {% block style %}
 <style>
@@ -28,6 +28,24 @@ Admin
         background-color: rgba(0, 0, 0, 0.5) !important;
     }
 
+    .social_icon span a i {
+        font-size: 60px;
+        margin-left: 10px;
+        color: rgb(243, 96, 96);
+    }
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+
+    .social_icon {
+        position: absolute;
+        right: 20px;
+        top: -45px;
+    }
+
     input[type=checkbox] {
         margin-right: 5px;
     }
@@ -51,15 +69,19 @@ Admin
             {% endif %}
             {% endwith %}
             <div class="card-header">
-                <h3>Admin Login</h3>
+                <h3>Sign In</h3>
+                <div class="d-flex justify-content-end social_icon">
+                    <span><a href="/login/oauth"><i class="fab fa-google" data-toggle="tooltip" data-placement="right"
+                                title="Login with Google"></i></a></span>
+                </div>
             </div>
             <div class="card-body">
-                <form action="/admin" method="POST">
+                <form action="/login" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
                         </div>
-                        <input type="text" name="username" class="form-control" placeholder="Username">
+                        <input type="email" name="email" class="form-control" placeholder="Email">
 
                     </div>
                     <div class="input-group form-group">
@@ -68,12 +90,18 @@ Admin
                         </div>
                         <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
-                    <div class="card-footer">
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn float-right btn-block btn-outline-primary">
-                        </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-block btn-outline-primary">
                     </div>
                 </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    Don't have an account? <a href="/register"> Sign Up</a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="/forgot">Forgot your password?</a>
+                </div>
             </div>
         </div>
     </div>

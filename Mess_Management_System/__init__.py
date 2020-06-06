@@ -22,7 +22,7 @@ google_blueprint = make_google_blueprint(
     client_secret=app.config['CLIENT_SECRET'],
     scope=['profile', 'email'],
     reprompt_select_account=True,
-    reprompt_consent=False, redirect_url='/login')
+    reprompt_consent=False, redirect_url='/login/oauth')
 app.register_blueprint(google_blueprint, url_prefix='/google_login')
 google_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, current_user)
 

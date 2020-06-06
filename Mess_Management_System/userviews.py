@@ -3,10 +3,11 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
-from flask import(render_template, redirect,
-                  url_for, flash, send_file, request)
+
+from flask import flash, redirect, render_template, request, send_file, url_for
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from Mess_Management_System import app, db, login_manager
 from Mess_Management_System.models import Dishes, User
@@ -21,6 +22,7 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET'])
 def index():
+    """Homepage"""
     dishes = Dishes.query.all()
     if not dishes:
         flash("No dishes are available in Mess!",
@@ -35,6 +37,7 @@ def index():
 @app.route('/balance', methods=['GET', 'POST'])
 @login_required
 def balance():
+    """Add balance to user account"""
     if request.method == 'POST':
         user_balance = request.form['balance']
         user = User.query.filter_by(id=current_user.id).first()
@@ -53,13 +56,53 @@ def balance():
 @app.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
+    """User Dashboard"""
     return render_template(
         'dashboard.html',
         year=year
     )
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'])
+def userlogin():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('dashboard'))
+        flash('Wrong Credentials', category='warning')
+        return redirect(url_for('userlogin'))
+    return render_template(
+        'login.html',
+        year=year
+    )
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = generate_password_hash(
+            request.form['password'], method='sha256')
+        if not User.query.filter_by(email=email).first():
+            user = User(name=name, email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            flash('Registration success', category='success')
+            return redirect(url_for('dashboard'))
+        flash('User already exists!', category='warning')
+        return redirect(url_for('register'))
+    return render_template(
+        'register.html',
+        year=year
+    )
+
+
+@app.route('/login/oauth', methods=['GET'])
 def login():
     if not google.authorized:
         return redirect(url_for('google.login'))
@@ -82,6 +125,7 @@ def login():
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():
+    """Logout User"""
     logout_user()
     flash("Logged out successfully",
           category='success')
@@ -90,6 +134,7 @@ def logout():
 
 @app.route('/dishes/<string:name>', methods=['GET'])
 def dishes_picture(name):
+    """Send Dish picture"""
     picture = Dishes.query.filter_by(name=name).first_or_404()
     return send_file(BytesIO(picture.picture),
                      mimetype='image/jpg', as_attachment=False,

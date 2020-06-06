@@ -5,25 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.css'>
     <script src="https://kit.fontawesome.com/4c8eb030d3.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+
+    {% endblock style %}
     <title>{% block title %} {% endblock title %}</title>
 </head>
 
 <body>
-    <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
+    <nav class='navbar sticky-top navbar-expand-lg navbar-dark bg-transparent'>
 
-        <div class='container-fluid' id='navbarNav'>
-            <ul class='nav navbar-nav navbar-brand'>
-                <li class='nav-item'>
-                    <a class='navbar-brand' href='/'><i class="fas fa-home"></i>  Home</a>
-                </li>
-            </ul>
-            <ul class='nav navbar-nav ml-auto'>
-                {% block nav %}{% endblock %}
-            </ul>
+        <div class='container'>
+            <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bar"></span>Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    {% block nav %}{% endblock %}
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="container" style="color: white;text-shadow: 2px 2px 12px #000000;">
@@ -33,9 +39,10 @@
             <p>&copy; {{year}} - Mess Management System</p>
         </footer>
     </div>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
     <script>
         $(document).ready(function () {
             $(".custom-file-input").change(function (e) {
@@ -45,6 +52,7 @@
                 }
                 $(".custom-file-label").html(e.target.files[0].name);
             });
+            $(".dropdown-toggle").dropdown();
         });
     </script>
 </body>

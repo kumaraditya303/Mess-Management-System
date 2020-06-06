@@ -1,40 +1,94 @@
 {% extends 'layout.html' %}
 {% block title %}
 Balance
-{% endblock title %}
-{% block nav %}
-<li class='nav-item active ml-4'>
-    <a class='nav-link' href='/order'>Order</a>
-</li>
+{% endblock  %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Numans');
 
-<li class='nav-item active ml-4'>
-    <a class='nav-link' href='/logout'>Logout</a>
-</li>
-{% endblock nav %}
+    html,
+    body {
+        background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.hdwallsource.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fitalian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg&f=1&nofb=1);
+        background-size: 120%;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+
+    .container {
+        height: 100%;
+        align-content: center;
+    }
+
+    .card {
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 400px;
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .social_icon span a i {
+        font-size: 60px;
+        margin-left: 10px;
+        color: rgb(243, 96, 96);
+    }
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+
+    .social_icon {
+        position: absolute;
+        right: 20px;
+        top: -45px;
+    }
+
+    input[type=checkbox] {
+        margin-right: 5px;
+    }
+</style>
+{% endblock style %}
 {% block content %}
-<form action="/balance" method="post" class="text-center mt-5 container" style="width: 50%;">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class='alert alert-{{category}}'>
-        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-        {{message}}
-    </div>
+<div class="container">
 
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <h1 class="display-4 text-center">Add Balance</h1>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class='alert alert-{{category}}'>
+                <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                {{message}}
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="card-header">
+                <h3>Add Balance</h3>
+
+            </div>
+            <div class="card-body">
+                <form action="/balance" method="POST" enctype="application/x-www-form-urlencoded">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Amount" name="balance" required
+                            autofocus>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-block btn-outline-primary">Add Balance</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
-        <input type="number" class="form-control" placeholder="Amount" name="balance" required autofocus>
     </div>
+</div>
 
-    <button class='btn btn-lg btn-primary btn-block' type='submit'>Submit</button>
-</form>
-
-
-{% endblock content %}
+{% endblock %}
