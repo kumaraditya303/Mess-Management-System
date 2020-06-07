@@ -73,7 +73,8 @@ Balance
 
             </div>
             <div class="card-body">
-                <form action="/balance" method="POST" enctype="application/x-www-form-urlencoded">
+                <form action="{{url_for('user.add_balance'')}}" method="POST"
+                    enctype="application/x-www-form-urlencoded">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>

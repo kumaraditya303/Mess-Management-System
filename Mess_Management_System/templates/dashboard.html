@@ -17,8 +17,8 @@ Dashboard
 
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/balance">Add Balance</a>
-        <a class="dropdown-item" href="/logout">Logout</a>
+        <a class="dropdown-item" href="{{url_for('user.dashboard')}}">Add Balance</a>
+        <a class="dropdown-item" href="/{{url_for('user.logout')}}">Logout</a>
     </div>
 </li>
 

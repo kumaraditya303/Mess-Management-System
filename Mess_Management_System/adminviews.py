@@ -5,12 +5,14 @@ from datetime import timedelta
 from functools import wraps
 from io import BytesIO
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, Blueprint
 from PIL import Image
 
-from Mess_Management_System import app, db, login_manager
+from Mess_Management_System import db, login_manager, app
 from Mess_Management_System.models import Admin, Dishes
 from Mess_Management_System.userviews import year
+
+admin = Blueprint('admin', __name__)
 
 
 def requires_admin():
@@ -25,8 +27,8 @@ def requires_admin():
     return wrapper
 
 
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
+@admin.route('/', methods=['GET', 'POST'])
+def admin_login():
     """Login admin"""
     if request.method == 'POST':
         username = request.form['username']
@@ -34,14 +36,14 @@ def admin():
         if username == app.config['ADMIN_USERNAME'] and \
                 password == app.config['ADMIN_PASSWORD']:
             Admin.admin = True
-            return redirect(url_for('admin_dashboard'))
+            return redirect(url_for('admin.admin_dashboard'))
     return render_template(
         'admin.html',
         year=year
     )
 
 
-@app.route('/admin/dashboard', methods=['GET'])
+@admin.route('/dashboard', methods=['GET'])
 @requires_admin()
 def admin_dashboard():
     """Admin Dashboard"""
@@ -53,15 +55,15 @@ def admin_dashboard():
     return unauthorized()
 
 
-@app.route('/admin/logout', methods=['GET'])
+@admin.route('/logout', methods=['GET'])
 @requires_admin()
 def admin_logout():
     """Admin Logout"""
     Admin.admin = False
-    return redirect(url_for('index'))
+    return redirect(url_for('admin.index'))
 
 
-@app.route('/add/dishes', methods=['GET', 'POST'])
+@admin.route('/add/dishes', methods=['GET', 'POST'])
 @requires_admin()
 def add_dishes():
     """Add Dish"""
@@ -83,7 +85,7 @@ def add_dishes():
         db.session.add(dish)
         db.session.commit()
         flash(f"{name} dish added successfully!", category='success')
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('admin.admin_dashboard'))
     return render_template(
         'add_dish.html',
         year=year
@@ -95,4 +97,4 @@ def unauthorized():
     """Unauthorized User"""
     flash("You are unauthorized to access the page!",
           category='warning')
-    return redirect(url_for('index'))
+    return redirect(url_for('admin.index'))

@@ -1,18 +1,21 @@
 """
 The user views
 """
+from Mess_Management_System.models import Dishes, User
+from Mess_Management_System import db, login_manager
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import current_user, login_required, login_user, logout_user
+from flask_dance.contrib.google import google
 from datetime import datetime
 from io import BytesIO
 
-from flask import flash, redirect, render_template, request, send_file, url_for
-from flask_dance.contrib.google import google
-from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import (flash, redirect, render_template,
+                   request, send_file, url_for, Blueprint)
 
-from Mess_Management_System import app, db, login_manager
-from Mess_Management_System.models import Dishes, User
 
 year = datetime.now().year
+
+user = Blueprint('user', __name__)
 
 
 @login_manager.user_loader
@@ -20,7 +23,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@app.route('/', methods=['GET'])
+@user.route('/', methods=['GET'])
 def index():
     """Homepage"""
     dishes = Dishes.query.all()
@@ -34,7 +37,7 @@ def index():
     )
 
 
-@app.route('/balance', methods=['GET', 'POST'])
+@user.route('/balance', methods=['GET', 'POST'])
 @login_required
 def balance():
     """Add balance to user account"""
@@ -53,7 +56,7 @@ def balance():
     )
 
 
-@app.route('/dashboard', methods=['GET'])
+@user.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
     """User Dashboard"""
@@ -63,7 +66,7 @@ def dashboard():
     )
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@user.route('/login', methods=['GET', 'POST'])
 def userlogin():
     if request.method == 'POST':
         email = request.form['email']
@@ -80,7 +83,7 @@ def userlogin():
     )
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@user.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         name = request.form['name']
@@ -102,7 +105,7 @@ def register():
     )
 
 
-@app.route('/login/oauth', methods=['GET'])
+@user.route('/login/oauth', methods=['GET'])
 def login():
     if not google.authorized:
         return redirect(url_for('google.login'))
@@ -122,7 +125,7 @@ def login():
     return redirect(url_for('dashboard'))
 
 
-@app.route('/logout', methods=['GET'])
+@user.route('/logout', methods=['GET'])
 @login_required
 def logout():
     """Logout User"""
@@ -132,7 +135,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/dishes/<string:name>', methods=['GET'])
+@user.route('/dishes/<string:name>', methods=['GET'])
 def dishes_picture(name):
     """Send Dish picture"""
     picture = Dishes.query.filter_by(name=name).first_or_404()
