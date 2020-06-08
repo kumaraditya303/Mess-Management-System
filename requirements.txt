@@ -11,3 +11,5 @@ Flask_Testing==0.8.0
 Flask_Dance==3.0.0
 SQLAlchemy==1.3.16
 Pillow==7.1.2
+gunicorn==19.0.0
+psycopg2-binary==2.8.0
