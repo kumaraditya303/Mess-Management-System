@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}
-Balance
+Login
 {% endblock  %}
 {% block style %}
 <style>
@@ -64,32 +64,30 @@ Balance
                 <button type='button' class='close' data-dismiss='alert'>&times;</button>
                 {{message}}
             </div>
-
             {% endfor %}
             {% endif %}
             {% endwith %}
             <div class="card-header">
-                <h3>Add Balance</h3>
+                <h3>Reset Password</h3>
+                <div class="card-body">
+                    <form action="{{url_for('user.forgot')}}" method="POST" enctype="application/x-www-form-urlencoded">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                            </div>
+                            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus
+                                minlength="8">
 
-            </div>
-            <div class="card-body">
-                <form action="{{url_for('user.balance')}}" method="POST"
-                    enctype="application/x-www-form-urlencoded">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Amount" name="balance" required
-                            autofocus min="1">
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-block btn-outline-primary">Add Balance</button>
-                    </div>
-                </form>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <input type="submit" value="Reset Password" class="btn btn-block btn-outline-primary">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}

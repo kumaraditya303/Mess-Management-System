@@ -4,7 +4,7 @@ Dashboard
 {% endblock title %}
 {% block nav %}
 <li class='nav-item active ml-4'>
-    <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i>  {{current_user.balance}}</span>
+    <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i> {{current_user.balance}}</span>
 </li>
 <li class='nav-item active ml-4'>
     <a class='nav-link' href='/order'>Order</a>
@@ -17,8 +17,8 @@ Dashboard
 
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="{{url_for('user.dashboard')}}">Add Balance</a>
-        <a class="dropdown-item" href="/{{url_for('user.logout')}}">Logout</a>
+        <a class="dropdown-item" href="{{url_for('user.balance')}}">Add Balance</a>
+        <a class="dropdown-item" href="{{url_for('user.logout')}}">Logout</a>
     </div>
 </li>
 

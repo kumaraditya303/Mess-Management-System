@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     balance = db.Column(db.Float, nullable=True, default=0.0)
     order_history = db.Column(db.JSON, nullable=True)
     total_balance = db.Column(db.Float, nullable=True, default=0.0)
-    password = db.Column(db.Text, nullable=True, unique=False)
+    password = db.Column(db.Text, nullable=True, unique=False, default=None)
 
 
 class Dishes(db.Model):
@@ -26,7 +26,7 @@ class Dishes(db.Model):
     picture = db.Column(db.LargeBinary, unique=False, nullable=False)
     price = db.Column(db.Float, nullable=False, default=0.0)
     description = db.Column(db.Text, unique=False, nullable=False)
-    cook_time = db.Column(db.Interval, nullable=False)
+    cook_time = db.Column(db.Interval, unique=False, nullable=False)
 
 
 class OAuth(OAuthConsumerMixin, db.Model):

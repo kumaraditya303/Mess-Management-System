@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    <nav class='navbar sticky-top navbar-expand-lg navbar-dark bg-transparent'>
+    <nav class='navbar sticky-top navbar-expand-lg navbar-dark bg-transparent'
+        style="background-color: rgba(0, 0, 0, 0.5) !important ;">
 
         <div class='container'>
             <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Home</a>
@@ -43,6 +44,7 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
     <!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
+    {% block script %}
     <script>
         $(document).ready(function () {
             $(".custom-file-input").change(function (e) {
@@ -55,6 +57,8 @@
             $(".dropdown-toggle").dropdown();
         });
     </script>
+
+    {% endblock script %}
 </body>
 
 </html>
