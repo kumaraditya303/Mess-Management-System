@@ -2,17 +2,20 @@
 The Admin views
 """
 from datetime import timedelta
-from functools import wraps
 from io import BytesIO
 
-from flask import flash, redirect, render_template, request, url_for, Blueprint
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from PIL import Image
+from functools import wraps
 
-from Mess_Management_System import db, login_manager, app
-from Mess_Management_System.models import Admin, Dishes
-from Mess_Management_System.userviews import year
+from Mess_Management_System import app, db, login_manager
 
-admin = Blueprint('admin', __name__)
+from Mess_Management_System.model.models import Admin, Dishes
+from Mess_Management_System.view.userviews import year
+
+admin = Blueprint('admin', __name__,
+                  static_folder='Mess_Management_System/static',
+                  template_folder='Mess_Management_System/templates')
 
 
 def requires_admin():
@@ -60,7 +63,7 @@ def admin_dashboard():
 def admin_logout():
     """Admin Logout"""
     Admin.admin = False
-    return redirect(url_for('admin.index'))
+    return redirect(url_for('user.index'))
 
 
 @admin.route('/add/dishes', methods=['GET', 'POST'])
@@ -97,4 +100,4 @@ def unauthorized():
     """Unauthorized User"""
     flash("You are unauthorized to access the page!",
           category='warning')
-    return redirect(url_for('admin.index'))
+    return redirect(url_for('user.index'))

@@ -8,16 +8,18 @@ from flask import (Blueprint, flash, redirect, render_template, request,
                    send_file, url_for)
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
-from itsdangerous import (SignatureExpired, BadTimeSignature, BadSignature)
+from itsdangerous import BadSignature, BadTimeSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from Mess_Management_System import db, login_manager, app, serializer
-from Mess_Management_System.models import Dishes, User
+from Mess_Management_System import app, db, login_manager, serializer
+from Mess_Management_System.model.models import Dishes, User
 from Mess_Management_System.notifiers.passwordreset import password_reset_email
 
 year = datetime.now().year
 
-user = Blueprint('user', __name__)
+user = Blueprint('user', __name__,
+                 static_folder='Mess_Management_System/static',
+                 template_folder='Mess_Management_System/templates/')
 
 
 @login_manager.user_loader
@@ -143,12 +145,13 @@ def forgot():
     if request.method == 'POST':
         email = request.form['email']
         if User.query.filter_by(email=email).first():
-            flash('Password reset link sent to your email!', category='success')
+            flash('Password reset link sent to your email!',
+                  category='success')
             url = url_for('user.forgot_password', token=serializer.dumps(
                 email, salt='reset-password'), _external=True)
             password_reset_email(app=app, email=[email], url=url)
             return redirect(url_for('user.index'))
-        flash('Email is not registered!')
+        flash('Email is not registered!', category='warning')
         return redirect(url_for('user.forgot'))
     return render_template(
         'reset.html',
@@ -167,10 +170,13 @@ def forgot_password(token):
             return redirect(url_for('user.forgot'))
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        user.password = generate_password_hash(password, method='sha256')
-        db.session.commit()
-        flash('Password reset was success!', category='success')
-        return redirect(url_for('user.userlogin'))
+        if not check_password_hash(user.password, password):
+            user.password = generate_password_hash(password, method='sha256')
+            db.session.commit()
+            flash('Password reset was success!', category='success')
+            return redirect(url_for('user.userlogin'))
+        flash("Same password cannot be changed", category='warning')
+        return redirect(request.url)
     return render_template(
         'reset_password.html',
         year=year,

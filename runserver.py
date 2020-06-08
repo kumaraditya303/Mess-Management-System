@@ -11,9 +11,9 @@ from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from flask_login import current_user
 
 from Mess_Management_System import app, db, google_blueprint
-from Mess_Management_System.adminviews import admin
-from Mess_Management_System.models import OAuth
-from Mess_Management_System.userviews import user
+from Mess_Management_System.view.adminviews import admin
+from Mess_Management_System.model.models import OAuth
+from Mess_Management_System.view.userviews import user
 
 if __name__ == '__main__':
     db.create_all()
