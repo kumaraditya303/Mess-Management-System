@@ -7,7 +7,7 @@ Dashboard
     <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i> {{current_user.balance}}</span>
 </li>
 <li class='nav-item active ml-4'>
-    <a class='nav-link' href='/order'>Order</a>
+    <a class='nav-link' href="{{url_for('user.order')}}">Order</a>
 </li>
 
 <li class="nav-item dropdown">

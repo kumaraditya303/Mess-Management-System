@@ -3,7 +3,7 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
-
+import json
 from flask import (Blueprint, flash, redirect, render_template, request,
                    send_file, url_for)
 from flask_dance.contrib.google import google
@@ -191,3 +191,29 @@ def dishes_picture(name):
     return send_file(BytesIO(picture.picture),
                      mimetype='image/jpg', as_attachment=False,
                      attachment_filename=f"{name}.jpg")
+
+
+@user.route('/order', methods=['GET', 'POST'])
+@login_required
+def order():
+    price = 0
+    if request.method == 'POST':
+        form = dict(request.form)
+        form = dict((k, v) for (k, v) in form.items() if not v == '0')
+        for dish, quantity in form.items():
+            dish_ordered = Dishes.query.filter_by(name=dish).first()
+            price += dish_ordered.price*int(quantity)
+        if current_user.balance > price:
+            form['time'] = datetime.now().strftime("%I:%M %p on %B %d, %Y")
+            current_user.balance -= price
+            current_user.order_history += json.dumps(form)
+            db.session.commit()
+            flash('Food ordered successfully!', category='success')
+            return redirect(url_for('user.dashboard'))
+        flash('You don\'t have enough balance!', category='warning')
+        return redirect(url_for('user.order'))
+    return render_template(
+        'order.html',
+        year=year,
+        dishes=Dishes.query.all()
+    )

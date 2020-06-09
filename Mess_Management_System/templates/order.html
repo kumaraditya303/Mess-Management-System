@@ -1,1 +1,132 @@
 {% extends 'layout.html' %}
+{% block title %}
+Order Food
+{% endblock title %}
+{% block nav %}
+<li class='nav-item active ml-4'>
+    <span class="nav-link">Balance: &emsp;<i class="fas fa-rupee-sign"></i> {{current_user.balance}}</span>
+</li>
+{% endblock nav %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Numans');
+
+    html,
+    body {
+        background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.hdwallsource.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fitalian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg&f=1&nofb=1);
+        background-size: 120%;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+
+    .container {
+        height: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
+        align-content: center;
+    }
+
+    .card {
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: fit-content;
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+{% if dishes %}
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class='alert alert-{{category}}'>
+                <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                {{message}}
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="card-header">
+                <h3>Order Food</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{url_for('user.order')}}" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="row justify-content-md-center">
+                        {% for dish in dishes %}
+                        <div class="col col-lg-6">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-pizza-slice"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="{{dish.name}}" readonly
+                                    id="dish-{{dish.id}}-dish">
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">&times;</span>
+                                </div>
+                                <input type="number" class="form-control number-change" name="{{dish.name}}" min="0"
+                                    max="100" value=0 id="dish-{{dish.id}}-quantity">
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+                                </div>
+                                <input type="number" class="form-control number" readonly value=0
+                                    id="dish-{{dish.id}}-total">
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% endif %}
+            <div class="card-footer">
+                <div class="input-group form-group col col-lg-4 float-right">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Total</span>
+                    </div>
+                    <input type="text" class="form-control" id="total" readonly value=0>
+                </div>
+                <button type="submit" class="btn btn-block btn-outline-primary" id="button" disabled>Order</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+    {% for dish in dishes %}
+    <script>
+        $('#dish-{{dish.id}}-quantity').keyup(function () {
+            var input = $(this).val();
+            $("#dish-{{dish.id}}-total").val(input * '{{dish.price}}');
+        });
+    </script>
+    {% endfor %}
+    <script>
+        var sum = 0;
+        $(".number-change").keyup(function () {
+            $(".number").each(function () {
+                sum += +$(this).val();
+            });
+            $("#total").val(sum);
+            if (sum == 0 || sum == "0")
+                $("#button").prop({ "disabled": true });
+            else {
+                $("#button").prop({ "disabled": false });
+            }
+            sum = 0;
+        });
+    </script>
+    {% endblock script %}

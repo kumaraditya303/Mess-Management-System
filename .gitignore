@@ -63,7 +63,6 @@ migrations/
 *.log
 local_settings.py
 db.sqlite3
-*.db
 
 # Flask stuff:
 instance/

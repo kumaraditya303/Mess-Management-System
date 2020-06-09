@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
     avatar = db.Column(db.Text, nullable=False,
                        default=Gravatar(str(email)).get_image())
     balance = db.Column(db.Float, nullable=True, default=0.0)
-    order_history = db.Column(db.JSON, nullable=True)
+    order_history = db.Column(db.JSON, nullable=True,default='')
     total_balance = db.Column(db.Float, nullable=True, default=0.0)
     password = db.Column(db.Text, nullable=True, unique=False, default=None)
 
