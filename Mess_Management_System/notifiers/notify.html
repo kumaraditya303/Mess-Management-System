@@ -19,9 +19,12 @@
     <div class="container">
         <h1 class="display-4 text-center">Mess Management System</h1>
         <div class="jumbotron text-center">
-            <p class="lead display-4">Password Reset</p>
-            <p class="lead">Forgot your password<br>We have got you covered</p>
-            <a class="btn btn-primary" href="{url}">Password Reset</a>
+            <p class="lead display-4">Registration Confirmation</p>
+            <p class="lead">Thank you for registering on Mess Management System with your {email},<br>
+                Your account is active and you may start ordering food <br>
+                If you did not initiate this registration, then you may safely ignore this email.</p><br><br>
+            <a href="{url_for('user.index', _external=True)}" class="btn btn-block btn-outline-primary"></a>
+
             <div class="footer">
                 <hr style="border: 5px solid white;border-radius: 5px;" />
                 <footer>

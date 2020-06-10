@@ -15,7 +15,6 @@ class User(UserMixin, db.Model):
     avatar = db.Column(db.Text, nullable=False,
                        default=Gravatar(str(email)).get_image())
     balance = db.Column(db.Float, nullable=True, default=0.0)
-    order_history = db.Column(db.JSON, nullable=True, default='')
     total_balance = db.Column(db.Float, nullable=True, default=0.0)
     password = db.Column(db.Text, nullable=True, unique=False)
 
@@ -25,6 +24,8 @@ class Dishes(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     picture = db.Column(db.LargeBinary, nullable=False)
     price = db.Column(db.Float, nullable=False, default=0.0)
+    orders = db.relationship('Order', backref='orders',
+                             cascade='all,delete', lazy=True)
     description = db.Column(db.Text, unique=False, nullable=False)
     cook_time = db.Column(db.Interval, unique=False, nullable=False)
 
@@ -36,3 +37,14 @@ class OAuth(OAuthConsumerMixin, db.Model):
 
 class Admin:
     admin = False
+
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=True, unique=True)
+    user = db.Column(db.Integer, db.ForeignKey(User.id),
+                     default=None, unique=False, nullable=True)
+    order = db.Column(db.Integer, db.ForeignKey(Dishes.id),
+                      default=None, unique=False, nullable=True)
+    quantity = db.Column(db.Integer, unique=False, nullable=False, default=0)
+    time = db.Column(db.DateTime, default=None, unique=False, nullable=True)
+    price = db.Column(db.Float, default=0.0, unique=False, nullable=True)

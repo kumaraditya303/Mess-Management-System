@@ -30,7 +30,7 @@ def password_reset_email(app, email, url):
         <div class="jumbotron text-center">
             <p class="lead display-4">Password Reset</p>
             <p class="lead">Password Reset Link valid for 60 minutes.</p>
-            <a class="btn btn-primary" href="{url}">Password Reset</a>
+            <a class="btn btn-primary htn-block" href="{url}">Password Reset</a>
             <div class="footer">
                 <hr style="border: 5px solid white;border-radius: 5px;" />
                 <footer>

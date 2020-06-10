@@ -7,12 +7,11 @@ application using a development server.
 from os import environ
 
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
-
 from flask_login import current_user
 
 from Mess_Management_System import app, db, google_blueprint
-from Mess_Management_System.view.adminviews import admin
 from Mess_Management_System.model.models import OAuth
+from Mess_Management_System.view.adminviews import admin
 from Mess_Management_System.view.userviews import user
 
 if __name__ == '__main__':

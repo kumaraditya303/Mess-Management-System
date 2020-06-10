@@ -5,16 +5,16 @@ from datetime import datetime
 from io import BytesIO
 import json
 from flask import (Blueprint, flash, redirect, render_template, request,
-                   send_file, url_for)
+                   send_file, url_for, jsonify)
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
 from itsdangerous import BadSignature, BadTimeSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from Mess_Management_System import app, db, login_manager, serializer
-from Mess_Management_System.model.models import Dishes, User
+from Mess_Management_System.model.models import Dishes, User, Order
 from Mess_Management_System.notifiers.passwordreset import password_reset_email
-
+from Mess_Management_System.notifiers.registration import registration_email
 year = datetime.now().year
 
 user = Blueprint('user', __name__,
@@ -64,14 +64,18 @@ def balance():
 @login_required
 def dashboard():
     """User Dashboard"""
+    order_history = Order.query.filter_by(id=current_user.id).all()
     return render_template(
         'dashboard.html',
-        year=year
+        year=year,
+        orders=order_history
     )
 
 
 @user.route('/login', methods=['GET', 'POST'])
 def userlogin():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.dashboard'))
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -90,6 +94,8 @@ def userlogin():
 
 @user.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.dashboard'))
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -100,6 +106,8 @@ def register():
             db.session.add(user)
             db.session.commit()
             login_user(user)
+            registration_email(app=app, email=email, url=url_for(
+                'user.index', _external=True))
             flash('Registration success', category='success')
             return redirect(url_for('user.dashboard'))
         flash('User already exists!', category='warning')
@@ -204,9 +212,15 @@ def order():
             dish_ordered = Dishes.query.filter_by(name=dish).first()
             price += dish_ordered.price*int(quantity)
         if current_user.balance > price:
-            form['time'] = datetime.now().strftime("%I:%M %p on %B %d, %Y")
+            for dish, quantity in form.items():
+                dish_ordered = Dishes.query.filter_by(name=dish).first()
+                order = Order(user=current_user.id,
+                              order=dish_ordered.id,
+                              quantity=int(quantity),
+                              price=int(quantity)*dish_ordered.price,
+                              time=datetime.now())
+                db.session.add(order)
             current_user.balance -= price
-            current_user.order_history += json.dumps(form)
             db.session.commit()
             flash('Food ordered successfully!', category='success')
             return redirect(url_for('user.dashboard'))
