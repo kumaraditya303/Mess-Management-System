@@ -14,6 +14,9 @@ Admin Dashboard
 </li>
 {% endblock nav %}
 {% block content %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+{% endblock style %}
 {% with messages = get_flashed_messages(with_categories=true) %}
 <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
 {% if messages %}

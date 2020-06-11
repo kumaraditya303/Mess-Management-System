@@ -3,35 +3,7 @@
 Admin Login
 {% endblock  %}
 {% block style %}
-<style>
-    @import url('https://fonts.googleapis.com/css?family=Numans');
-
-    html,
-    body {
-        background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fblog.hdwallsource.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fitalian-food-wallpaper-hd-44478-45604-hd-wallpapers.jpg&f=1&nofb=1);
-        background-size: 120%;
-        background-repeat: no-repeat;
-        height: 100%;
-        font-family: 'Numans', sans-serif;
-    }
-
-    .container {
-        height: 100%;
-        align-content: center;
-    }
-
-    .card {
-        height: fit-content;
-        margin-top: auto;
-        margin-bottom: auto;
-        width: 400px;
-        background-color: rgba(0, 0, 0, 0.5) !important;
-    }
-
-    input[type=checkbox] {
-        margin-right: 5px;
-    }
-</style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock style %}
 {% block content %}
 <div class="container">

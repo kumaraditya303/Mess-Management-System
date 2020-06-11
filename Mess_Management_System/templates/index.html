@@ -2,6 +2,9 @@
 {% block title %}
 Home
 {% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+{% endblock style %}
 {% block nav %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
