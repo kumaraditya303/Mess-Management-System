@@ -1,4 +1,4 @@
-from Mess_Management_System import app, db, mail
+from runserver import app, db
 from flask_testing import TestCase
 from config import TestConfig
 
@@ -7,7 +7,6 @@ class Test(TestCase):
 
     def create_app(self):
         app.config.from_object(TestConfig)
-        mail.init_app(app)
         return app
 
     def setUp(self):

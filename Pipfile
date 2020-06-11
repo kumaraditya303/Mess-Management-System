@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-mail = "*"
+flask-login = "*"
+flask-migrate = "*"
+flask-sqlalchemy = "*"
+sqlalchemy-utils = "*"
+pytest = "*"
+pillow = "*"
+flask-dance = "*"
+itsdangerous = "*"
+gunicorn = "==20.0"
+
+[dev-packages]
+pytest = "*"
+flask-testing = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.8"
