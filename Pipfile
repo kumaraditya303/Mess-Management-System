@@ -14,7 +14,7 @@ pytest = "*"
 pillow = "*"
 flask-dance = "*"
 itsdangerous = "*"
-gunicorn = "==20.0"
+gunicorn = "==20.0.4"
 click = "*"
 
 [dev-packages]
