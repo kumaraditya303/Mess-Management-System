@@ -3,9 +3,8 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
-import json
 from flask import (Blueprint, flash, redirect, render_template, request,
-                   send_file, url_for, jsonify)
+                   send_file, url_for)
 from flask_dance.contrib.google import google
 from flask_login import current_user, login_required, login_user, logout_user
 from itsdangerous import BadSignature, BadTimeSignature, SignatureExpired

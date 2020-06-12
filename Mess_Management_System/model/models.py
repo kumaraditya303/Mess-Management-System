@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     balance = db.Column(db.Float, nullable=True, default=0.0)
     total_balance = db.Column(db.Float, nullable=True, default=0.0)
     password = db.Column(db.Text, nullable=True, unique=False)
+    admin = db.Column(db.Boolean, nullable=False, unique=False, default=False)
 
 
 class Dishes(db.Model):
@@ -33,10 +34,6 @@ class Dishes(db.Model):
 class OAuth(OAuthConsumerMixin, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
-
-
-class Admin:
-    admin = False
 
 
 class Order(db.Model):
