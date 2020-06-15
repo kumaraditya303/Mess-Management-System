@@ -157,6 +157,7 @@ def forgot():
             url = url_for('user.forgot_password', token=serializer.dumps(
                 email, salt='reset-password'), _external=True)
             password_reset_email(app=app, email=[email], url=url)
+            flash('Email sent successfully!', category='success')
             return redirect(url_for('user.index'))
         flash('Email is not registered!', category='warning')
         return redirect(url_for('user.forgot'))
@@ -203,6 +204,7 @@ def dishes_picture(name):
 @user.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+
     price = 0
     if request.method == 'POST':
         form = dict(request.form)

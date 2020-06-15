@@ -26,7 +26,8 @@ def admin_login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if user and user.admin and check_password_hash(user.password, password):
+        if user and user.admin and \
+                check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('admin.admin_dashboard'))
     return render_template(
@@ -73,7 +74,9 @@ def add_dishes():
         buffer = BytesIO()
         image_resized.save(buffer, format='JPEG')
         price = request.form['price']
-        cook_time = timedelta(minutes=int(request.form['cooktime']))
+        hours = int(request.form['cooktime'][:2])
+        minutes = int(request.form['cooktime'][4:5])
+        cook_time = timedelta(hours=hours, minutes=minutes)
         dish = Dishes(name=name,
                       picture=buffer.getvalue(),
                       price=price,

@@ -18,8 +18,6 @@ class Config:
     MAIL_USERNAME = os.environ.get(
         'MAIL_USERNAME') or 'messmgmtsystem@gmail.com'
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'pythonflask'
-    ADMIN_USERNAME = 'ADMIN_USERNAME'
-    ADMIN_PASSWORD = 'ADMIN_PASSWORD'
     CLIENT_ID = (
         '51928570069-otrtlen7ja6duijpl1g1nhuf3201d2j0.apps.googleusercontent.com')
     CLIENT_SECRET = 'SXJyM-582YGw2xeNaVczkwSR'

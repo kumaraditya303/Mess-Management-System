@@ -3,7 +3,7 @@
 Order Food
 {% endblock title %}
 {% block style %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock style %}
 {% block nav %}
 <li class='nav-item active ml-4'>
@@ -15,7 +15,7 @@ Order Food
 {% if dishes %}
 <div class="container">
     <div class="d-flex justify-content-center h-100">
-        <div class="card">
+        <div class="card" style="width: fit-content;">
             {% with messages = get_flashed_messages(with_categories=true) %}
             <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
             {% if messages %}

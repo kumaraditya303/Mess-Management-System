@@ -3,7 +3,7 @@
 Add Dish
 {% endblock title %}
 {% block style %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock style %}
 {% block nav %}
 <li class='nav-item active ml-4'>
@@ -46,12 +46,7 @@ Add Dish
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
                 </div>
-                <input type="number" class="form-control" placeholder="Cook time" name="cooktime" required min="1">
-                <div class='input-group-append'>
-                    <div class='input-group-text'>
-                        <span>minutes</span>
-                    </div>
-                </div>
+                <input type="time" class="form-control" placeholder="Cook time" name="cooktime" required>
             </div>
             <textarea name="description" cols="30" rows="2" class="form-control mb-3" placeholder="Description"
                 required></textarea>
