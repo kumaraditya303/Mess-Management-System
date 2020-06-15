@@ -8,10 +8,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED 1
-
+RUN python -m pip install pipenv -U
 # Install pip requirements
-ADD requirements.txt .
-RUN python -m pip install -r requirements.txt
+ADD Pipfile .
+RUN pipenv install 
 
 WORKDIR /app
 ADD . /app
