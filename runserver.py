@@ -16,6 +16,7 @@ from Mess_Management_System.view.userviews import user
 from getpass import getpass
 import re
 from werkzeug.security import generate_password_hash
+import logging
 
 
 @app.cli.command("createsuperuser")
@@ -52,4 +53,6 @@ if __name__ == '__main__':
         PORT = int(environ.get('SERVER_PORT', '8000'))
     except ValueError:
         PORT = 8000
+    logging.basicConfig(filename='logs.log', level=logging.ERROR,
+                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
     app.run(HOST, PORT, threaded=True)

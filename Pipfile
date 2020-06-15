@@ -4,23 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-flask-mail = "*"
-flask-login = "*"
-flask-migrate = "*"
-flask-sqlalchemy = "*"
-sqlalchemy-utils = "*"
-pytest = "*"
-pillow = "*"
-flask-dance = "*"
-itsdangerous = "*"
-gunicorn = "==20.0"
-click = "*"
+flask-migrate = "==2.5.3"
+flask-login = "==0.5.0"
+flask-dance = "==3.0.0"
+flask-sqlalchemy = "==2.2"
+libgravatar = "==0.2.3"
+flask-mail = "==0.9.1"
+werkzeug = "==0.16.1"
+itsdangerous = "==1.1.0"
+Flask = "==1.1.2"
+pillow = "==7.1.2"
 
 [dev-packages]
+flask-testing = "==0.8.0"
 pytest = "*"
-flask-testing = "*"
-pytest-cov = "*"
 
 [requires]
 python_version = "3.8"

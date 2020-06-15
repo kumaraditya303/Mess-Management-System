@@ -30,6 +30,8 @@ def admin_login():
                 check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('admin.admin_dashboard'))
+        flash('Wrong Credentials!', category='warning')
+        return redirect(request.url)
     return render_template(
         'admin.html',
         year=year
