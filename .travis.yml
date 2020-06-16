@@ -7,8 +7,8 @@ services:
   - docker
   # - mysql
 before_install:
-  - docker build -t messmanagamentsystem:latest .
-  - docker ps -a
+  - docker-compose up
+
   # - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
 install:
   - pip install -r requirements.txt
@@ -18,7 +18,7 @@ before_script:
 script:
   # - flask db init
   # - flask db migrate -m "Initial Migration" 
-  - pytest --cov=Mess_Management_System tests/
+#  - pytest --cov=Mess_Management_System tests/
 notifications:
   on_success: always
   on_failure: always
