@@ -7,7 +7,7 @@ services:
   - docker
   # - mysql
 before_install:
-  - docker-compose up
+  - docker-compose build
 
   # - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
 install:
