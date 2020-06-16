@@ -18,6 +18,13 @@ import re
 from werkzeug.security import generate_password_hash
 import logging
 
+db.create_all()
+app.register_blueprint(google_blueprint, url_prefix='/google_login')
+google_blueprint.backend = SQLAlchemyStorage(
+    OAuth, db.session, current_user)
+app.register_blueprint(user)
+app.register_blueprint(admin, url_prefix='/admin')
+
 
 @app.cli.command("createsuperuser")
 def createsuperuser():
@@ -42,12 +49,6 @@ def createsuperuser():
 
 
 if __name__ == '__main__':
-    db.create_all()
-    app.register_blueprint(google_blueprint, url_prefix='/google_login')
-    google_blueprint.backend = SQLAlchemyStorage(
-        OAuth, db.session, current_user)
-    app.register_blueprint(user)
-    app.register_blueprint(admin, url_prefix='/admin')
     HOST = environ.get('SERVER_HOST', 'localhost')
     try:
         PORT = int(environ.get('SERVER_PORT', '8000'))

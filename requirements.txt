@@ -1,0 +1,14 @@
+Flask==1.1.2
+Flask_Testing==0.8.0
+Flask_Mail==0.9.1
+Flask_SQLAlchemy==2.2
+Flask_Migrate==2.5.3
+Werkzeug==0.16.1
+Flask_Dance==3.0.0
+libgravatar==0.2.3
+itsdangerous==1.1.0
+Flask_Login==0.5.0
+Pillow==7.1.2
+pytest 
+gunicorn==20.0
+sqlalchemy_utils

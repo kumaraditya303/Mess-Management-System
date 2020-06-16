@@ -8,17 +8,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED 1
-RUN python -m pip install pipenv -U
+
 # Install pip requirements
-ADD Pipfile .
-RUN pipenv install 
+ADD requirements.txt .
+RUN python -m pip install -r requirements.txt
 
-WORKDIR /app
-ADD . /app
-
-# Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
-RUN useradd appuser && chown -R appuser /app
-USER appuser
+WORKDIR /code
+ADD . /code
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "runserver:app"]
+CMD ["gunicorn", "runserver:app", "--bind", "0.0.0.0:8000"]
