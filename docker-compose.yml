@@ -1,10 +1,22 @@
 version: "3.4"
 
 services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DATABASE: data
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
   web:
     image: messmanagementsystem
     build:
       context: .
       dockerfile: Dockerfile
+    links:
+      - db
     ports:
       - "8000:8000"
+    environment:
+      DATABASE_URL: mysql+pymysql://docker:docker@db/data

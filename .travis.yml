@@ -5,20 +5,10 @@ python:
   - "3.8"
 services:
   - docker
- 
-
-  # - docker run messmanagamentsystem:latest /bin/sh -c "pytest"
 install:
   - pip install -r requirements.txt
-
-  #- export FLASK_APP=runserver.py
-  # - mysql -e 'CREATE DATABASE mydatabase;'
-
-  # - flask db init
-  # - flask db migrate -m "Initial Migration" 
-#  - pytest --cov=Mess_Management_System tests/
 script:
-    - docker-compose build
+  - docker-compose up --build
 notifications:
   on_success: always
   on_failure: always

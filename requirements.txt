@@ -12,3 +12,5 @@ Pillow==7.1.2
 pytest 
 gunicorn==20.0
 sqlalchemy_utils
+configparser
+flask-mysql
