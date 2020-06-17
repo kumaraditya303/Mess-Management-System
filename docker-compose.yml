@@ -7,8 +7,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: docker
       MYSQL_DATABASE: data
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
   web:
     image: messmanagementsystem
     build:
@@ -19,4 +17,4 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: mysql+pymysql://docker:docker@db/data
+      DATABASE_URL: mysql+pymysql://db/data
