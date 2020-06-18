@@ -26,7 +26,7 @@ app.register_blueprint(user)
 app.register_blueprint(admin, url_prefix='/admin')
 
 
-@app.cli.command("createsuperuser")
+@app.cli.command("createsuperuser", help='Create super user account.')
 def createsuperuser():
     name = input('Name: ')
     email = input('Email: ')

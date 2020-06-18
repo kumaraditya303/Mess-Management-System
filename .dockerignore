@@ -22,4 +22,6 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+**/LICENSE
+**/*.log
 README.md
