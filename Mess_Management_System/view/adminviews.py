@@ -21,7 +21,11 @@ admin = Blueprint('admin', __name__,
 
 @admin.route('/', methods=['GET', 'POST'])
 def admin_login():
-    """Login admin"""
+    """Admin Login Route
+
+    Returns:
+        str: Admin Login template
+    """
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -41,7 +45,11 @@ def admin_login():
 @admin.route('/dashboard', methods=['GET'])
 @login_required
 def admin_dashboard():
-    """Admin Dashboard"""
+    """Admin Dashboard route
+
+    Returns:
+        str: Admin Dashboard template
+    """
 
     if not current_user.admin:
         return unauthorized()
@@ -53,8 +61,12 @@ def admin_dashboard():
 
 @admin.route('/logout', methods=['GET'])
 @login_required
-def admin_logout():
-    """Admin Logout"""
+def admin_logout() -> str:
+    """Admin logout route
+
+    Returns:
+        str: Redirect to homepage
+    """
     if not current_user.admin:
         return unauthorized()
     logout_user()
@@ -64,7 +76,11 @@ def admin_logout():
 @admin.route('/add/dishes', methods=['GET', 'POST'])
 @login_required
 def add_dishes():
-    """Add Dish"""
+    """Add dish to database
+
+    Returns:
+        str: Dish add template
+    """
     if not current_user.admin:
         return unauthorized()
     if request.method == 'POST':
@@ -96,7 +112,11 @@ def add_dishes():
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    """Unauthorized User"""
+    """Unauthorized warning route
+
+    Returns:
+        str: Redirect to homepage
+    """
     flash("You are unauthorized to access the page!",
           category='warning')
     return redirect(url_for('user.index'))

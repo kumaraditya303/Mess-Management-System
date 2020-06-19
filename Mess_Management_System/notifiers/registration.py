@@ -50,6 +50,6 @@ def registration_email(app, email, url):
 
 </html>'''
     message = Message(subject='Registration Notification', recipients=email,
-                      html=html, sender=app.config['MAIL_USERNAME'])
+                      html=html, sender='Admin')
     email = Thread(target=send_async_email, args=[app, message])
     email.start()

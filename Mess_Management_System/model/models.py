@@ -9,6 +9,12 @@ from Mess_Management_System import db
 
 
 class User(UserMixin, db.Model):
+    """User database class
+
+    Args:
+        UserMixin : Flask-Login Mixin   
+        db : Database Model Base Class
+    """
     __tablename__ = 'messusers'
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -22,6 +28,11 @@ class User(UserMixin, db.Model):
 
 
 class Dishes(db.Model):
+    """Dish database class
+
+    Args:
+        db : Database Model Base Class
+    """
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     picture = db.Column(db.LargeBinary, nullable=False)
@@ -33,11 +44,22 @@ class Dishes(db.Model):
 
 
 class OAuth(OAuthConsumerMixin, db.Model):
+    """OAuth database class
+
+    Args:
+        OAuthConsumerMixin : Flask-Dance Mixin
+        db : Database Model Base Class
+    """
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
 
 
 class Order(db.Model):
+    """User Order database class
+
+    Args:
+        db : Database Model Base Class
+    """
     id = db.Column(db.Integer, primary_key=True, nullable=True, unique=True)
     user = db.Column(db.Integer, db.ForeignKey(User.id),
                      default=None, unique=False, nullable=True)

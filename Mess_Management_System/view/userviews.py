@@ -3,6 +3,7 @@ The user views
 """
 from datetime import datetime
 from io import BytesIO
+from threading import Thread
 from flask import (Blueprint, flash, redirect, render_template, request,
                    send_file, url_for)
 from flask_dance.contrib.google import google
@@ -11,9 +12,10 @@ from itsdangerous import BadSignature, BadTimeSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from Mess_Management_System import app, db, login_manager, serializer
-from Mess_Management_System.model.models import Dishes, User, Order
+from Mess_Management_System.model.models import Dishes, Order, User
 from Mess_Management_System.notifiers.passwordreset import password_reset_email
 from Mess_Management_System.notifiers.registration import registration_email
+from Mess_Management_System.notifiers.invoice import invoice_email
 year = datetime.now().year
 
 user = Blueprint('user', __name__,
@@ -204,14 +206,16 @@ def dishes_picture(name):
 @user.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
-
     price = 0
+    orders = dict()
     if request.method == 'POST':
         form = dict(request.form)
         form = dict((k, v) for (k, v) in form.items() if not v == '0')
         for dish, quantity in form.items():
             dish_ordered = Dishes.query.filter_by(name=dish).first()
             price += dish_ordered.price*int(quantity)
+            orders.update(
+                {dish_ordered: dish_ordered.price*int(quantity)})
         if current_user.balance > price:
             for dish, quantity in form.items():
                 dish_ordered = Dishes.query.filter_by(name=dish).first()
@@ -223,6 +227,14 @@ def order():
                 db.session.add(order)
             current_user.balance -= price
             db.session.commit()
+            invoice = render_template('invoice.html',
+                                      total=price,
+                                      id=1,
+                                      created=datetime.now()
+                                      .strftime("%b %d %Y %H:%M:%S"),
+                                      orders=orders)
+            Thread(target=invoice_email, args=[
+                   app, [current_user.email], invoice]).start()
             flash('Food ordered successfully!', category='success')
             return redirect(url_for('user.dashboard'))
         flash('You don\'t have enough balance!', category='warning')

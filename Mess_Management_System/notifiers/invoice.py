@@ -1,17 +1,12 @@
 from datetime import datetime
-from threading import Thread
-
 from flask_mail import Message
 
 from Mess_Management_System import mail
+import pdfkit
 
 
-def send_async_email(app, message):
-    with app.app_context():
-        mail.send(message)
-
-
-def password_reset_email(app, email, url):
+def invoice_email(app, email, invoice):
+    invoice = pdfkit.from_string(invoice, False)
     html = f'''
 <!DOCTYPE html>
 <html lang="en">
@@ -28,9 +23,12 @@ def password_reset_email(app, email, url):
     <div class="container">
         <h1 class="display-4 text-center">Mess Management System</h1>
         <div class="jumbotron text-center">
-            <p class="lead display-4">Password Reset</p>
-            <p class="lead">Password Reset Link valid for 60 minutes.</p>
-            <a class="btn btn-primary htn-block" href="{url}">Password Reset</a>
+            <p class="lead display-4">Order Invoice</p>
+            <p class="lead">Thank you for ordering with Mess Management System <br>
+            The invoice of the transcation is attached with this email.
+            <br><br>
+            If you did not initiate this transaction, then you may safely ignore this email.
+            </p>
             <div class="footer">
                 <hr style="border: 5px solid white;border-radius: 5px;" />
                 <footer>
@@ -45,7 +43,9 @@ def password_reset_email(app, email, url):
 </body>
 
 </html>'''
-    message = Message(subject='Password Reset', recipients=email,
+    message = Message(subject='Order Invoice', recipients=email,
                       html=html, sender='Admin')
-    email = Thread(target=send_async_email, args=[app, message])
-    email.start()
+    message.attach('invoice.pdf', 'application/pdf', invoice)
+
+    with app.app_context():
+        mail.send(message)
