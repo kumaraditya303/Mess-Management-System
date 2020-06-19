@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/kumaraditya/Programs/Mess Management System/venv/bin/python3.8",
+    "python.pythonPath": "/bin/python3",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true

@@ -105,7 +105,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            registration_email(app=app, email=email, url=url_for(
+            registration_email(app=app, email=[email], url=url_for(
                 'user.index', _external=True))
             flash('Registration success', category='success')
             return redirect(url_for('user.dashboard'))
@@ -184,7 +184,7 @@ def forgot_password(token):
             flash('Password reset was success!', category='success')
             return redirect(url_for('user.userlogin'))
         flash("Same password cannot be changed", category='warning')
-        return redirect(request.url)
+        return redirect(url_for('user.forgot_password', token=token))
     return render_template(
         'reset_password.html',
         year=year,

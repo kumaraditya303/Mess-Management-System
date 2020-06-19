@@ -30,7 +30,8 @@ app.register_blueprint(admin, url_prefix='/admin')
 def createsuperuser():
     name = input('Name: ')
     email = input('Email: ')
-    while not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+    while not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+                       email):
         print('Invalid email address, enter again!')
         email = input('Email: ')
     password = getpass()
@@ -43,7 +44,7 @@ def createsuperuser():
                      password=password, admin=True)
         db.session.add(admin)
         db.session.commit()
-        print('Admin User created successfullt!')
+        print('Admin User created successfully!')
     else:
         print('Admin User already exists!')
 
@@ -55,5 +56,6 @@ if __name__ == '__main__':
     except ValueError:
         PORT = 8000
     logging.basicConfig(filename='logs.log', level=logging.ERROR,
-                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-    app.run(HOST, PORT, threaded=True)
+                        format='%(asctime)s %(levelname)s %(name)s'
+                        ' %(threadName)s : %(message)s')
+    app.run(HOST, PORT, threaded=True, debug=True)

@@ -13,8 +13,9 @@ ENV PYTHONUNBUFFERED 1
 ADD requirements.txt .
 RUN python -m pip install -r requirements.txt
 
+# Copy files to work directory
 WORKDIR /code
 ADD . /code
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "runserver:app", "--bind", "0.0.0.0:8000", "--workers=5"]
+CMD ["gunicorn", "runserver:app", "--bind", "0.0.0.0:8000","--log-level=DEBUG"]

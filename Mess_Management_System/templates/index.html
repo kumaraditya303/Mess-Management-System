@@ -1,58 +1,66 @@
-{% extends 'layout.html' %}
-{% block title %}
-Home
-{% endblock title %}
-{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
-{% endblock style %}
-{% block nav %}
+{% extends 'layout.html' %} {% block title %} Home {% endblock title %} {% block
+style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/site.css') }}"
+/>
+{% endblock style %} {% block nav %}
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <i class="fas fa-sign-in-alt"></i> Sign In
-    </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="{{url_for('user.userlogin')}}">Login</a>
-        <a class="dropdown-item" href="{{url_for('user.register')}}">Register</a>
-    </div>
+  <a
+    class="nav-link dropdown-toggle"
+    href="#"
+    id="dropdownMenuButton"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <i class="fas fa-sign-in-alt"></i> Sign In
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{{url_for('user.userlogin')}}">Login</a>
+    <a class="dropdown-item" href="{{url_for('user.register')}}">Register</a>
+  </div>
 </li>
-<li class='nav-item'>
-    <a class='nav-link' href='{{url_for("admin.admin_login")}}'><i class="fas fa-users-cog"></i> Admin</a>
+<li class="nav-item">
+  <a class="nav-link" href='{{url_for("admin.admin_login")}}'
+    ><i class="fas fa-users-cog"></i> Admin</a
+  >
 </li>
-{% endblock nav %}
-{% block content %}
+{% endblock nav %} {% block content %}
 <div class="container text-center mt-5">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class='alert alert-{{category}}'>
-        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-        {{message}}
-    </div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+  {% if messages %} {% for category, message in messages %}
+  <div class="alert alert-{{category}}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{message}}
+  </div>
 
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <h1 class="display-4">Welcome to Mess Management System</h1>
-    <p class="lead">This is a Python Flask Based System</p>
-    {% if dishes %}
-    <h1 class="display-4">All Dishes</h1>
-    <hr style="border: 3px solid white; border-radius: 5px;" />
-    <br>
-    <div class="row">
-        {% for dish in dishes %}
-        <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
-            <img class="card-img-top" src="/dishes/{{dish.name}}" height="256px" width="256px">
-            <h5 class="card-header">{{dish.name}}</h5>
-            <div class="card-body">
-                <p class="card-text">{{dish.description}}</p>
-                <p><i class="fa fa-clock-o"> &emsp; {{dish.cook_time}}</i></p>
-                <p><i class="fas fa-rupee-sign"> &emsp; {{dish.price}}</i></p>
-            </div>
-        </div>
-        {% endfor %}
+  {% endfor %} {% endif %} {% endwith %}
+  <h1 class="display-4">Welcome to Mess Management System</h1>
+  <p class="lead">This is a Python Flask Based System</p>
+  {% if dishes %}
+  <h1 class="display-4">All Dishes</h1>
+  <hr style="border: 3px solid white; border-radius: 5px;" />
+  <br />
+  <div class="row">
+    {% for dish in dishes %}
+    <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
+      <img
+        class="card-img-top"
+        src="/dishes/{{dish.name}}"
+        height="256px"
+        width="256px"
+      />
+      <h5 class="card-header">{{dish.name}}</h5>
+      <div class="card-body">
+        <p class="card-text">{{dish.description}}</p>
+        <p><i class="fa fa-clock-o"> &emsp; {{dish.cook_time}}</i></p>
+        <p><i class="fas fa-rupee-sign"> &emsp; {{dish.price}}</i></p>
+      </div>
     </div>
-    {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
 {% endblock content %}
