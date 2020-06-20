@@ -42,20 +42,26 @@ Dashboard
     {% endif %}
     {% endwith %}
     <h1 class="display-4">Welcome {{current_user.name}}</h1>
-    {% for order in orders %}
+
+    {% if orders %}
     <h1 class="display-5">Your previous orders</h1>
     <hr style="border: 3px solid white; border-radius: 5px;" />
-    <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
-        <img class="card-img-top" src="/dishes/{{order.orders.name}}" height="256px" width="256px">
-        <h5 class="card-header">{{order.orders.name}}</h5>
-        <div class="card-body">
-            <p class="card-text">{{order.orders.description}}</p>
-            <p><i class="fa fa-clock-o"> &emsp; {{order.time}}</i></p>
-            <p><i class="fa fa-clock-o"> &emsp; {{order.quantity}}</i></p>
-            <p><i class="fas fa-rupee-sign"> &emsp; {{order.price}}</i></p>
+    <br />
+    <div class="row">
+        {% for order in orders %}
+        <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
+            <img class="card-img-top" src="{{ url_for('user.dishes_picture',name=order.orders.name) }}" height="256px"
+                width="256px">
+            <h5 class="card-header">{{order.orders.name}}</h5>
+            <div class="card-body">
+                <p class="card-text">{{order.orders.description}}</p>
+                <p><i class="fa fa-clock-o"> &emsp; {{order.time}}</i></p>
+                <p><i class="fa fa-clock-o"> &emsp; {{order.quantity}}</i></p>
+                <p><i class="fas fa-rupee-sign"> &emsp; {{order.price}}</i></p>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
+    {% endif %}
 </div>
 {% endblock content %}

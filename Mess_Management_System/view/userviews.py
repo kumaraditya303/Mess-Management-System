@@ -65,7 +65,7 @@ def balance():
 @login_required
 def dashboard():
     """User Dashboard"""
-    order_history = Order.query.filter_by(id=current_user.id).all()
+    order_history = Order.query.filter_by(user=current_user.id).all()
     return render_template(
         'dashboard.html',
         year=year,

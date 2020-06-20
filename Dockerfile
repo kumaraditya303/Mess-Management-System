@@ -9,6 +9,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED 1
 
+RUN apt-get update -y 
+RUN apt-get install wkhtmltopdf -y
 # Install pip requirements
 ADD requirements.txt .
 RUN python -m pip install -r requirements.txt
@@ -18,4 +20,4 @@ WORKDIR /code
 ADD . /code
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "runserver:app", "--bind", "0.0.0.0:8000","--log-level=DEBUG"]
+CMD ["gunicorn", "runserver:app", "--bind", "0.0.0.0:8000","--thread=17","--log-level=DEBUG"]

@@ -1,19 +1,10 @@
 {% extends 'layout.html' %} {% block title %} Home {% endblock title %} {% block
 style %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/site.css') }}"
-/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}" />
 {% endblock style %} {% block nav %}
 <li class="nav-item dropdown">
-  <a
-    class="nav-link dropdown-toggle"
-    href="#"
-    id="dropdownMenuButton"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
+  <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">
     <i class="fas fa-sign-in-alt"></i> Sign In
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -22,9 +13,7 @@ style %}
   </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href='{{url_for("admin.admin_login")}}'
-    ><i class="fas fa-users-cog"></i> Admin</a
-  >
+  <a class="nav-link" href='{{url_for("admin.admin_login")}}'><i class="fas fa-users-cog"></i> Admin</a>
 </li>
 {% endblock nav %} {% block content %}
 <div class="container text-center mt-5">
@@ -46,12 +35,8 @@ style %}
   <div class="row">
     {% for dish in dishes %}
     <div class="card m-auto mb-3 bg-dark text-left" style="width: 18rem;">
-      <img
-        class="card-img-top"
-        src="/dishes/{{dish.name}}"
-        height="256px"
-        width="256px"
-      />
+      <img class="card-img-top" src="{{ url_for('user.dishes_picture',name=dish.name) }}" height="256px"
+        width="256px" />
       <h5 class="card-header">{{dish.name}}</h5>
       <div class="card-body">
         <p class="card-text">{{dish.description}}</p>
