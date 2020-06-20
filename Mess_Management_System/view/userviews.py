@@ -210,7 +210,7 @@ def order():
     orders = {}
     if request.method == 'POST':
         form = dict(request.form)
-        form = dict((k, v) for (k, v) in form.items() if not v == '0')
+        form = {k: v for (k, v) in form.items() if not v == '0'}
         for dish, quantity in form.items():
             dish_ordered = Dishes.query.filter_by(name=dish).first()
             price += dish_ordered.price*int(quantity)
