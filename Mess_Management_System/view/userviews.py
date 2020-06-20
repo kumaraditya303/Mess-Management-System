@@ -207,7 +207,7 @@ def dishes_picture(name):
 @login_required
 def order():
     price = 0
-    orders = dict()
+    orders = {}
     if request.method == 'POST':
         form = dict(request.form)
         form = dict((k, v) for (k, v) in form.items() if not v == '0')
