@@ -5,7 +5,7 @@
   </a>
 </p>
 
-> Python Flask Baackend based Mess Management System
+> Python Flask Backend based Mess Management System
 
 ### ✨ [Demo](https://messmanagementsystem.herokuapp.com)
 
@@ -37,5 +37,3 @@ docker-compose run web pytest
 
 Give a ⭐️ if this project helped you!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
