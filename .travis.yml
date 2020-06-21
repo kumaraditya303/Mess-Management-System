@@ -2,11 +2,14 @@ language: python
 os: linux
 dist: focal
 python:
-- '3.8'
+  - "3.8"
 services:
-- docker
+  - docker
+before_script:
+  - pytest --cov=Mess_Management_System tests/
 script:
-- docker-compose build
+  - docker-compose build
+  - docker-compose run web pytest --cov=Mess_Management_System tests/
 notifications:
   on_success: always
   on_failure: always
@@ -17,4 +20,4 @@ deploy:
   app: messmanagementsystem
   on:
     repo: kumaraditya303/Mess-Management-System
-  skip_cleanup: 'true'
+  skip_cleanup: "true"

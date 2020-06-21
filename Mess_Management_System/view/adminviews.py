@@ -61,7 +61,7 @@ def admin_dashboard():
 
 @admin.route('/logout', methods=['GET'])
 @login_required
-def admin_logout() -> str:
+def admin_logout():
     """Admin logout route
 
     Returns:

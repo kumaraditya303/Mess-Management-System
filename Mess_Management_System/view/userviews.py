@@ -109,7 +109,6 @@ def register():
             login_user(user)
             registration_email(app=app, email=[email], url=url_for(
                 'user.index', _external=True))
-            flash('Registration success', category='success')
             return redirect(url_for('user.dashboard'))
         flash('User already exists!', category='warning')
         return redirect(url_for('user.register'))
@@ -134,8 +133,6 @@ def login():
         db.session.add(user)
         db.session.commit()
     login_user(user)
-    flash("Logged in successfully!",
-          category='success')
     return redirect(url_for('user.dashboard'))
 
 
@@ -144,8 +141,6 @@ def login():
 def logout():
     """Logout User"""
     logout_user()
-    flash("Logged out successfully",
-          category='success')
     return redirect(url_for('user.index'))
 
 
