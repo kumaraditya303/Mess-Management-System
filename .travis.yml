@@ -9,7 +9,7 @@ before_script:
   - pytest --cov=Mess_Management_System tests/
 script:
   - docker-compose build
-  - docker-compose run web pytest --cov=Mess_Management_System tests/
+  - docker-compose run messmanagementsystem pytest --cov=Mess_Management_System tests/
 notifications:
   on_success: always
   on_failure: always
