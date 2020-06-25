@@ -14,7 +14,6 @@ app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
-login_manager.session_protection = 'strong'
 mail = Mail(app)
 migrate = Migrate(app, db)
 google_blueprint = make_google_blueprint(

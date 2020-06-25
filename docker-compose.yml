@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.8"
 
 services:
   db:
@@ -13,8 +13,10 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    depends_on:
+      - db
 
-  web:
+  messmanagementsystem:
     image: messmanagementsystem
     build:
       context: .
