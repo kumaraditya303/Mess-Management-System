@@ -1,70 +1,97 @@
 <!-- layout for pages -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.css'>
-    <script src="https://kit.fontawesome.com/4c8eb030d3.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
-    {% block style %}
-
-    {% endblock style %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/4c8eb030d3.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap"
+      rel="stylesheet"
+    />
+    {% block style %} {% endblock style %}
     <title>{% block title %} {% endblock title %}</title>
-</head>
+  </head>
 
-<body>
-    <nav class='navbar sticky-top navbar-expand-lg navbar-dark bg-transparent'
-        style="background-color: rgba(0, 0, 0, 0.5) !important ;">
+  <body>
+    <nav
+      class="navbar sticky-top navbar-expand-lg navbar-dark bg-transparent"
+      style="background-color: rgba(0, 0, 0, 0.5) !important ;"
+    >
+      <div class="container">
+        {% if current_user.is_authenticated and current_user.admin %}
+        <a class="navbar-brand" href="{{url_for('admin.admin_dashboard')}}"
+          ><i class="fas fa-home"></i> Dashboard</a
+        >
+        {% elif current_user.is_authenticated %}
+        <a class="navbar-brand" href="{{url_for('user.dashboard')}}"
+          ><i class="fas fa-home"></i> Dashboard</a
+        >
+        {% else %}
+        <a class="navbar-brand" href="{{url_for('user.index')}}"
+          ><i class="fas fa-home"></i> Home</a
+        >
+        {% endif %}
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#ftco-nav"
+          aria-controls="ftco-nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="fas fa-bar"></span>Menu
+        </button>
 
-        <div class='container'>
-            {% if current_user.is_authenticated and current_user.admin %}
-            <a class="navbar-brand" href="{{url_for('admin.admin_dashboard')}}"><i class="fas fa-home"></i>
-                Dashboard</a>
-            {% elif current_user.is_authenticated %}
-            <a class="navbar-brand" href="{{url_for('user.dashboard')}}"><i class="fas fa-home"></i> Dashboard</a>
-            {% else %}
-            <a class="navbar-brand" href="{{url_for('user.index')}}"><i class="fas fa-home"></i> Home</a>
-            {% endif %}
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="fas fa-bar"></span>Menu
-            </button>
-
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    {% block nav %}{% endblock %}
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            {% block nav %}{% endblock %}
+          </ul>
         </div>
+      </div>
     </nav>
-    <div class="container" style="color: white;text-shadow: 2px 2px 12px #000000;">
-        {% block content %}{% endblock %}
-        <hr style="border: 5px solid white;border-radius: 5px;" />
-        <footer>
-            <p>&copy; {{year}} - Mess Management System</p>
-        </footer>
+    <div
+      class="container"
+      style="color: white; text-shadow: 2px 2px 12px #000000;"
+    >
+      {% block content %}{% endblock %}
+      <hr style="border: 5px solid white; border-radius: 5px;" />
+      <footer>
+        <p>&copy; {{year}} - Mess Management System</p>
+      </footer>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
     {% block script %}
     <script>
-        $(document).ready(function () {
-            $(".custom-file-input").change(function (e) {
-                var fileExtension = ['jpeg', 'jpg'];
-                if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                    alert("Only formats are allowed : " + fileExtension.join(', '));
-                }
-                $(".custom-file-label").html(e.target.files[0].name);
-            });
-            $(".dropdown-toggle").dropdown();
+      $(document).ready(function () {
+        $(".custom-file-input").change(function (e) {
+          var fileExtension = ["jpeg", "jpg"];
+          if (
+            $.inArray(
+              $(this).val().split(".").pop().toLowerCase(),
+              fileExtension
+            ) == -1
+          ) {
+            alert("Only formats are allowed : " + fileExtension.join(", "));
+          }
+          $(".custom-file-label").html(e.target.files[0].name);
+          $(".custom-file-input").val("");
         });
+        $(".dropdown-toggle").dropdown();
+      });
     </script>
 
     {% endblock script %}
-</body>
-
+  </body>
 </html>
