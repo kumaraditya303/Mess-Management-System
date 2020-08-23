@@ -16,8 +16,8 @@ class Config:
     MAIL_USERNAME = os.environ.get(
         'MAIL_USERNAME') 
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') 
-    CLIENT_ID = 
-    CLIENT_SECRET = 
+    CLIENT_ID = os.environ.get('CLIENT_ID')
+    CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
     REDIRECT_URI = 'https://localhost:5000/login/callback'
     AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
     TOKEN_URI = 'https://accounts.google.com/o/oauth2/token'
