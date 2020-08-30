@@ -5,6 +5,8 @@
   </a>
 </p>
 
+[![HitCount](http://hits.dwyl.com/kumaraditya303/Mess-Management-System.svg)](http://hits.dwyl.com/kumaraditya303/Mess-Management-System)
+
 > Python Flask Backend based Mess Management System
 
 ### ✨ [Demo](https://messmanagementsystem.herokuapp.com)
