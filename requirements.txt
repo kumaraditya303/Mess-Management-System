@@ -14,4 +14,4 @@ psycopg2-binary==2.8.6
 sqlalchemy_utils==0.36.8
 pdfkit==0.6.1
 pytest==6.2.1
-pytest-cov==2.11.0
+pytest-cov==2.11.1
