@@ -1,6 +1,6 @@
 Flask_Login==0.5.0
 Flask_Testing==0.8.1
-libgravatar==0.2.5
+libgravatar==1.0.0
 Flask==1.1.2
 Werkzeug==0.16.1
 Flask_Dance==3.3.1
