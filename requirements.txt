@@ -11,7 +11,7 @@ itsdangerous==2.0.0
 Pillow==8.2.0
 gunicorn==20.1.0
 psycopg2-binary==2.8.6
-sqlalchemy_utils==0.37.2
+sqlalchemy_utils==0.37.3
 pdfkit==0.6.1
 pytest==6.2.4
 pytest-cov==2.11.1
